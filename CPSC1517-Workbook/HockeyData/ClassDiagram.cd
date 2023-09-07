@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Hockey.Data.HockeyPlayer">
+    <Position X="2.25" Y="1.5" Width="9.5" />
+    <TypeIdentifier>
+      <HashCode>CCEAAEAAAAAAABAgAAGAAAAAAAAYQAAAAAQAAAAQAAg=</HashCode>
+      <FileName>HockeyPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Hockey.Data.Position">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACAAAAAAAAAAAAAAAAAIAAAAAAAAAgAIAAA=</HashCode>
+      <FileName>Position.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Hockey.Data.Shot">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAA=</HashCode>
+      <FileName>Shot.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
