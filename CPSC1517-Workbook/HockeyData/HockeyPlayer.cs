@@ -1,4 +1,6 @@
-﻿namespace Hockey.Data
+﻿using Utilities;
+
+namespace Hockey.Data
 {
     /// <summary>
     /// An instance of this class will hold data about a hockey player
@@ -22,7 +24,7 @@
         private string _lastName;
         private DateOnly _dateOfBirth;
         private int _weightInPounds;
-        private int _heightInInches;
+        private int _heightInCm;
         // The following are unnecessary as enums are used
         // private Position _position = Position.Center;
         // private Shot _shot;
@@ -73,14 +75,26 @@
             _birthPlace = string.Empty;
             _dateOfBirth = new DateOnly();
             _weightInPounds = 0;
-            _heightInInches = 0;
+            _heightInCm = 0;
             Shot = Shot.Right;
             Position = Position.Center;
         }
 
         // Greedy Constructor
+        /// <summary>
+        /// Creates an instance of HockeyPlayer with the supplied params. Will throw an exception
+        /// if any of the params are invalid for the associated property.
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="birthPlace"></param>
+        /// <param name="dateOfBirth"></param>
+        /// <param name="weightInPounds"></param>
+        /// <param name="heightInCm"></param>
+        /// <param name="position"></param>
+        /// <param name="shot"></param>
         public HockeyPlayer(string firstName, string lastName, string birthPlace, DateOnly dateOfBirth,
-            int weightInPounds, int heightInInches, Shot shot, Position position)
+            int weightInPounds, int heightInCm, Position position = Position.Center, Shot shot = Shot.Right)
         {
             // Constructor body:
             // a) A parameter for every property
@@ -93,7 +107,7 @@
             BirthPlace = birthPlace;
             DateOfBirth = dateOfBirth;
             WeightInPounds = weightInPounds;
-            HeightInInches = heightInInches;
+            HeightInCm = heightInCm;
             Shot = shot;
             Position = position;
         }
@@ -145,9 +159,9 @@
                 //    to set another field
 
                 // Ensure the incoming value is not null, empty, or whitespace (invalid values)
-                if (String.IsNullOrWhiteSpace(value))
+                if (Utils.IsNullEmptyOrWhiteSpace(value))
                 {
-                    throw new ArgumentException($"First name cannot be null empty.");
+                    throw new ArgumentException($"First name cannot be null or empty.");
                 }
 
                 // If we get here, the value is "good" and we can assign to the data field
@@ -163,9 +177,9 @@
             }
             set
             {
-                if (String.IsNullOrWhiteSpace(value))
+                if (Utils.IsNullEmptyOrWhiteSpace(value))
                 {
-                    throw new ArgumentException($"Last name cannot be null empty.");
+                    throw new ArgumentException($"Last name cannot be null or empty.");
                 }
 
                 _lastName = value;
@@ -180,9 +194,9 @@
             }
             set
             {
-                if (String.IsNullOrWhiteSpace(value))
+                if (Utils.IsNullEmptyOrWhiteSpace(value))
                 {
-                    throw new ArgumentException($"Birth place cannot be null empty.");
+                    throw new ArgumentException($"Birth place cannot be null or empty.");
                 }
 
                 _birthPlace = value;
@@ -197,7 +211,7 @@
             }
             set
             {
-                if (value >= DateOnly.FromDateTime(DateTime.Now))
+                if (Utils.IsInTheFuture(value))
                 {
                     throw new ArgumentException($"Date of birth cannot be in the future.");
                 }
@@ -206,20 +220,20 @@
             }
         }
 
-        public int HeightInInches
+        public int HeightInCm
         {
             get
             {
-                return _heightInInches;
+                return _heightInCm;
             }
             set
             {
-                if (value <= 0)
+                if (Utils.IsZeroOrNegative(value))
                 {
                     throw new ArgumentException($"Height must be positive.");
                 }
 
-                _heightInInches = value;
+                _heightInCm = value;
             }
         }
 
@@ -231,7 +245,7 @@
             }
             set
             {
-                if (value <= 0)
+                if (!Utils.IsPositive(value))
                 {
                     throw new ArgumentException($"Weight must be positive.");
                 }
@@ -241,8 +255,31 @@
         }
 
         // Auto-implemented property - using an enum so no validation necessary
+        // These properties differ only in syntax
+        // Each property is responsible for a single piece of data
+        // These properties do NOT reference a declared data field
+        // The system generates an internal storage area of the return type
+        // The system manages the internal storage for the accessor and mutator
+        // NOTE: there is NO additional logic applied to the data value
         public Position Position { get; set; }
 
         public Shot Shot { get; set; }
+
+        // Derived property using expresion-bodied property
+        // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members
+        public int Age => (DateOnly.FromDateTime(DateTime.Now).DayNumber - DateOfBirth.DayNumber) / 365;
+
+        // Behaviours (aka methods)
+        // A behaviour is any method in your class
+        // Behaviours can be private (for use by the classonly); publoic (for use by the outside user)
+        // All rules about methods are in effect
+
+        // A special method may be placed in the class to reflect the data stored by the 
+        // instance (object) based on this class definition (ToString)
+        // This method is part fo the system software and can be overridden by your own version of the method
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
 }
