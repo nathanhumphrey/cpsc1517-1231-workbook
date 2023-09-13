@@ -3,7 +3,7 @@
   <Class Name="Hockey.Data.HockeyPlayer">
     <Position X="2.25" Y="1.5" Width="9.5" />
     <TypeIdentifier>
-      <HashCode>CCEAAEAAAAAAABAgAAGAAAAAAAAYQAAAAAQAAAAQAAg=</HashCode>
+      <HashCode>CCEAAEAAAAAAABAkAEGAAAAAAAAYQAAAAAQAAAAQAAg=</HashCode>
       <FileName>HockeyPlayer.cs</FileName>
     </TypeIdentifier>
   </Class>

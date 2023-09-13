@@ -130,6 +130,9 @@ namespace Hockey.Data
         // - the set can be either public or privte
         //     public: user can alter contents
         //     private: only code within the class can alter contents
+        // A property MAY use init in place of set. The init keyword will ensure
+        //   that the property can only be set during object construction (i.e. in the 
+        //   constructor). The property can never again be updated, enforcing immuatibility.
 
         // Fully-implemented property
         // a) a declared storage area (data field)
@@ -156,7 +159,7 @@ namespace Hockey.Data
                 // The return has syntax of return expression
                 return _firstName;
             }
-            private set
+            init
             {
                 // Mutator
                 // The set block receives an incoming "value" and places it into the associated field
@@ -184,7 +187,7 @@ namespace Hockey.Data
             {
                 return _lastName;
             }
-            private set
+            init
             {
                 if (Utils.IsNullEmptyOrWhiteSpace(value))
                 {
@@ -204,7 +207,7 @@ namespace Hockey.Data
             {
                 return _birthPlace;
             }
-            private set
+            init
             {
                 if (Utils.IsNullEmptyOrWhiteSpace(value))
                 {
@@ -224,7 +227,7 @@ namespace Hockey.Data
             {
                 return _dateOfBirth;
             }
-            private set
+            init
             {
                 if (Utils.IsInTheFuture(value))
                 {
@@ -244,7 +247,7 @@ namespace Hockey.Data
             {
                 return _heightInInches;
             }
-            private set
+            init
             {
                 if (Utils.IsZeroOrNegative(value))
                 {
@@ -264,7 +267,7 @@ namespace Hockey.Data
             {
                 return _weightInPounds;
             }
-            private set
+            init
             {
                 if (!Utils.IsPositive(value))
                 {
