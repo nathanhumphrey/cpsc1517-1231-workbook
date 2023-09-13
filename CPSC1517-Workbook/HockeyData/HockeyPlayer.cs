@@ -24,7 +24,7 @@ namespace Hockey.Data
         private string _lastName;
         private DateOnly _dateOfBirth;
         private int _weightInPounds;
-        private int _heightInCm;
+        private int _heightInInches;
         // The following are unnecessary as enums are used
         // private Position _position = Position.Center;
         // private Shot _shot;
@@ -54,31 +54,34 @@ namespace Hockey.Data
         //            E.g. HockeyPlayer player = new HockeyPlayer(...)
 
         // Default constructor
-        /// <summary>
-        /// Creates a default instance of a HockeyPlayer
-        /// </summary>
-        public HockeyPlayer()
-        {
-            // Constructor body: 
-            // a) If empty: the C# defualts for each field will be assigned
-            // b) You can provide literal values to your fields/properties with this constructor
+        // ===================================================================
+        // =               LEFT HERE FOR POSTERITY, NOT IN USE               =
+        // ===================================================================
+        ///// <summary>
+        ///// Creates a default instance of a HockeyPlayer
+        ///// </summary>
+        //public HockeyPlayer()
+        //{
+        //    // Constructor body: 
+        //    // a) If empty: the C# defualts for each field will be assigned
+        //    // b) You can provide literal values to your fields/properties with this constructor
 
-            // Ensure that you assign values that would pass any validation rules you set
-            // for property mutators, or better yet, assign to the properties to make use 
-            // of validation rules directly - avoid duplicating validation logic in the 
-            // constructor method(s)
-            //
-            // You may want to code validation logic in the constructor(s) if you have implemented
-            // a readonly property or if the data member has only a private set.
-            _firstName = string.Empty;
-            _lastName = string.Empty;
-            _birthPlace = string.Empty;
-            _dateOfBirth = new DateOnly();
-            _weightInPounds = 0;
-            _heightInCm = 0;
-            Shot = Shot.Right;
-            Position = Position.Center;
-        }
+        //    // Ensure that you assign values that would pass any validation rules you set
+        //    // for property mutators, or better yet, assign to the properties to make use 
+        //    // of validation rules directly - avoid duplicating validation logic in the 
+        //    // constructor method(s)
+        //    //
+        //    // You may want to code validation logic in the constructor(s) if you have implemented
+        //    // a readonly property or if the data member has only a private set.
+        //    _firstName = string.Empty;
+        //    _lastName = string.Empty;
+        //    _birthPlace = string.Empty;
+        //    _dateOfBirth = new DateOnly();
+        //    _weightInPounds = 0;
+        //    _heightInInches = 0;
+        //    Shot = Shot.Right;
+        //    Position = Position.Center;
+        //}
 
         // Greedy Constructor
         /// <summary>
@@ -90,11 +93,11 @@ namespace Hockey.Data
         /// <param name="birthPlace"></param>
         /// <param name="dateOfBirth"></param>
         /// <param name="weightInPounds"></param>
-        /// <param name="heightInCm"></param>
+        /// <param name="heightInInches"></param>
         /// <param name="position"></param>
         /// <param name="shot"></param>
         public HockeyPlayer(string firstName, string lastName, string birthPlace, DateOnly dateOfBirth,
-            int weightInPounds, int heightInCm, Position position = Position.Center, Shot shot = Shot.Right)
+            int weightInPounds, int heightInInches, Position position = Position.Center, Shot shot = Shot.Right)
         {
             // Constructor body:
             // a) A parameter for every property
@@ -107,7 +110,7 @@ namespace Hockey.Data
             BirthPlace = birthPlace;
             DateOfBirth = dateOfBirth;
             WeightInPounds = weightInPounds;
-            HeightInCm = heightInCm;
+            HeightInInches = heightInInches;
             Shot = shot;
             Position = position;
         }
@@ -141,6 +144,9 @@ namespace Hockey.Data
         // c) if you are creating a property that generates output based on other sources
         //    within the class (readonly property); this property would ONLY have an
         //    accessor (get)
+        /// <summary>
+        /// Represents a hockey player's first name
+        /// </summary>
         public string FirstName
         {
             get
@@ -150,7 +156,7 @@ namespace Hockey.Data
                 // The return has syntax of return expression
                 return _firstName;
             }
-            set
+            private set
             {
                 // Mutator
                 // The set block receives an incoming "value" and places it into the associated field
@@ -169,13 +175,16 @@ namespace Hockey.Data
             }
         }
 
+        /// <summary>
+        /// Represents a hockey player's last name
+        /// </summary>
         public string LastName
         {
             get
             {
                 return _lastName;
             }
-            set
+            private set
             {
                 if (Utils.IsNullEmptyOrWhiteSpace(value))
                 {
@@ -186,13 +195,16 @@ namespace Hockey.Data
             }
         }
 
+        /// <summary>
+        /// Represents a hockey player's place of birth
+        /// </summary>
         public string BirthPlace
         {
             get
             {
                 return _birthPlace;
             }
-            set
+            private set
             {
                 if (Utils.IsNullEmptyOrWhiteSpace(value))
                 {
@@ -203,13 +215,16 @@ namespace Hockey.Data
             }
         }
 
+        /// <summary>
+        /// Represents a hockey player's date of birth
+        /// </summary>
         public DateOnly DateOfBirth
         {
             get
             {
                 return _dateOfBirth;
             }
-            set
+            private set
             {
                 if (Utils.IsInTheFuture(value))
                 {
@@ -220,30 +235,36 @@ namespace Hockey.Data
             }
         }
 
-        public int HeightInCm
+        /// <summary>
+        /// Represents a hockey player's height in inches
+        /// </summary>
+        public int HeightInInches
         {
             get
             {
-                return _heightInCm;
+                return _heightInInches;
             }
-            set
+            private set
             {
                 if (Utils.IsZeroOrNegative(value))
                 {
                     throw new ArgumentException($"Height must be positive.");
                 }
 
-                _heightInCm = value;
+                _heightInInches = value;
             }
         }
 
+        /// <summary>
+        /// Represents a hockey player's weight in pounds
+        /// </summary>
         public int WeightInPounds
         {
             get
             {
                 return _weightInPounds;
             }
-            set
+            private set
             {
                 if (!Utils.IsPositive(value))
                 {
@@ -261,12 +282,22 @@ namespace Hockey.Data
         // The system generates an internal storage area of the return type
         // The system manages the internal storage for the accessor and mutator
         // NOTE: there is NO additional logic applied to the data value
+
+        /// <summary>
+        /// Represents the player's position
+        /// </summary>
         public Position Position { get; set; }
 
+        /// <summary>
+        /// Represents the player's shot hand
+        /// </summary>
         public Shot Shot { get; set; }
 
         // Derived property using expresion-bodied property
         // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members
+        /// <summary>
+        /// Represents the player's current age
+        /// </summary>
         public int Age => (DateOnly.FromDateTime(DateTime.Now).DayNumber - DateOfBirth.DayNumber) / 365;
 
         // Behaviours (aka methods)
@@ -277,6 +308,10 @@ namespace Hockey.Data
         // A special method may be placed in the class to reflect the data stored by the 
         // instance (object) based on this class definition (ToString)
         // This method is part fo the system software and can be overridden by your own version of the method
+        /// <summary>
+        /// The string representation of a hockey player object
+        /// </summary>
+        /// <returns>A string including the player's first and last name</returns>
         public override string ToString()
         {
             return $"{FirstName} {LastName}";

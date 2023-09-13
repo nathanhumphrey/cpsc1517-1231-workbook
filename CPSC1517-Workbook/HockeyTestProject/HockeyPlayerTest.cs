@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Hockey.Data;
 using System.Collections;
+using System.Numerics;
 
 namespace Hockey.Test
 {
@@ -11,8 +12,8 @@ namespace Hockey.Test
         const string LAST_NAME = "Brown";
         const string BIRTH_PLACE = "Toronto, ON, CAN";
         static readonly DateOnly DATE_OF_BIRTH = new DateOnly(1994, 01, 14);
-        const int HEIGHT_IN_CM = 183;
-        const int WEIGHT_IN_KG = 82;
+        const int HEIGHT_IN_INCHES = 72;
+        const int WEIGHT_IN_LBS = 188;
         const Position POSITION = Position.Center;
         const Shot SHOT = Shot.Left;
         // The following relies on our being correct here - not writing a test for the test expected value
@@ -26,15 +27,15 @@ namespace Hockey.Test
         //    AGE.Should().Be(29);
         //}
 
-        // Test data generateor for class data (see line 53 below)
-        private class TestHockeyPlayerGenerator : IEnumerable<object[]>
+        // Test data generateor for class data (see line 85 below)
+        private class BadHockeyPlayerTestDataGenerator : IEnumerable<object[]>
         {
             private readonly List<object[]> _data = new List<object[]>
             {
-                new object[]
-                {
-                    new HockeyPlayer(FIRST_NAME, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_CM, WEIGHT_IN_KG, POSITION, SHOT)
-                }
+                // First Name tests
+                new object[]{"", LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT, "First name cannot be null or empty." },
+                new object[]{" ", LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT, "First name cannot be null or empty." },
+                new object[]{null, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT, "First name cannot be null or empty." },
             };
 
             public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
@@ -42,32 +43,29 @@ namespace Hockey.Test
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
-        // Alternative test data generator for member data (see line 54 below)
+        // Alternative test data generator for member data (see line 97 below)
         public static IEnumerable<object[]> GetTestHockeyPlayer()
         {
             // Add as many test objects as desired/required
             yield return new object[]
             {
-                new HockeyPlayer("Connor", "Brown", "Toronto, ON, CAN", new DateOnly(1994, 01, 14), 82, 183, Position.Center, Shot.Right)
+                new HockeyPlayer(FIRST_NAME, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT)
             };
         }
 
-        // Helper to create a default HockeyPlayer instance
-        private HockeyPlayer CreateDefaultHockeyPlayer()
-        {
-            return new HockeyPlayer();
-        }
+        // ===================================================================
+        // =               LEFT HERE FOR POSTERITY, NOT IN USE               =
+        // ===================================================================
+        //[Fact]
+        //public void HockeyPlayer_DefaultConstructor_ReturnsHockeyPlayer()
+        //{
+        //    HockeyPlayer sut = new HockeyPlayer();
 
-        [Fact]
-        public void HockeyPlayer_DefaultConstructor_ReturnsHockeyPlayer()
-        {
-            HockeyPlayer sut = CreateDefaultHockeyPlayer();
+        //    // We're not testing the properties ... need to test the data fields, but they're private! So, what to do? Simply test that this
+        //    // constructor returns a HockeyPlayer instance.
 
-            // We're not testing the properties ... need to test the data fields, but they're private! So, what to do? Simply test that this
-            // constructor returns a HockeyPlayer instance.
-
-            sut.Should().NotBeNull();
-        }
+        //    sut.Should().NotBeNull();
+        //}
 
         // Switched the following from an original Fact test (relying on line 58 below) to a Theory test 
         // with two options: ClassData and MemberData
@@ -81,41 +79,19 @@ namespace Hockey.Test
             //HockeyPlayer sut = new HockeyPlayer("Connor", "Brown", "Toronto, ON, CAN", new DateOnly(1994, 01, 14), 82, 183, Position.Center, Shot.Right);
 
             sut.Should().NotBeNull();
-
         }
 
         [Theory]
-        [InlineData("Bobby")]
-        public void HockeyPlayer_FirstName_GoodSet(string firstName)
+        [ClassData(typeof(BadHockeyPlayerTestDataGenerator))]
+        public void HockeyPlayer_GreedyConstructor_ThrowsException(string firstName, string lastName, string birthPlace, 
+            DateOnly dateOfBirth, int weightInPounds, int heightInInches, Position position, Shot shot, string errMsg)
         {
             // Arrange
-            HockeyPlayer player = CreateDefaultHockeyPlayer();
-
-            // Act
-            player.FirstName = firstName;
-
-            // Assert
-            player.FirstName.Should().Be(firstName);
-
-        }
-
-        const string INVALID_FIRST_NAME_MESSAGE = "First name cannot be null or empty.";
-        [Theory]
-        [InlineData("", INVALID_FIRST_NAME_MESSAGE)]
-        [InlineData(" ", INVALID_FIRST_NAME_MESSAGE)]
-        [InlineData(null, INVALID_FIRST_NAME_MESSAGE)]
-        public void HockeyPlayer_FirstName_BadSet(string firstName, string message)
-        {
-            // Arrange
-            HockeyPlayer player = CreateDefaultHockeyPlayer();
-            Action act = () => player.FirstName = firstName;
+            Action act = () => new HockeyPlayer(firstName, lastName, birthPlace, dateOfBirth, weightInPounds, heightInInches, position, shot);
 
             // Act/Assert
-            act.Should().Throw<ArgumentException>().WithMessage(message);
+            act.Should().Throw<ArgumentException>().WithMessage(errMsg);
         }
-
-        // TODO: complete remaining string properties
-        // TODO: complete remaining int properties
 
         [Theory]
         [MemberData(nameof(GetTestHockeyPlayer))]
