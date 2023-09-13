@@ -89,7 +89,7 @@ namespace UtilitiesTestProject
 
         [Theory]
         [MemberData(nameof(GenerateAgeTestData))]
-        public void Utils_IsInTheFuture_ReturnsTrueForFuture(object date, bool expected)
+        public void Utils_IsInTheFuture_ReturnsTrueForFutureFalseOtherwise(object date, bool expected)
         {
             // Arrange
             bool actual;
