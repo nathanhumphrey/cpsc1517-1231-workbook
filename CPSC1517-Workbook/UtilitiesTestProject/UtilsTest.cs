@@ -1,5 +1,5 @@
 using FluentAssertions;
-using Utilities;
+using Utils;
 
 namespace UtilitiesTestProject
 {
@@ -14,7 +14,7 @@ namespace UtilitiesTestProject
             bool expected;
 
             // Act
-            expected = Utils.IsPositive(positive);
+            expected = Utils.Utilities.IsPositive(positive);
 
             // Assert
             expected.Should().BeTrue();
@@ -28,7 +28,7 @@ namespace UtilitiesTestProject
             bool expected;
 
             // Act
-            expected = Utils.IsPositive(zero);
+            expected = Utils.Utilities.IsPositive(zero);
 
             // Assert
             expected.Should().BeFalse();
@@ -42,7 +42,7 @@ namespace UtilitiesTestProject
             bool expected;
 
             // Act
-            expected = Utils.IsPositive(negative);
+            expected = Utils.Utilities.IsPositive(negative);
 
             // Assert
             expected.Should().BeFalse();
@@ -98,11 +98,11 @@ namespace UtilitiesTestProject
             //if (typeof(DateTime).IsAssignableTo(date.GetType()))
             if (date.GetType() == typeof(DateTime))
             {
-                actual = Utils.IsInTheFuture((DateTime)date);
+                actual = Utils.Utilities.IsInTheFuture((DateTime)date);
             }
             else
             {
-                actual = Utils.IsInTheFuture((DateOnly)date);
+                actual = Utils.Utilities.IsInTheFuture((DateOnly)date);
             }
 
             // Assert

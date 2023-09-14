@@ -1,4 +1,4 @@
-﻿using Utilities;
+﻿using Utils;
 
 namespace Hockey.Data
 {
@@ -159,7 +159,7 @@ namespace Hockey.Data
                 // The return has syntax of return expression
                 return _firstName;
             }
-            init
+            private set
             {
                 // Mutator
                 // The set block receives an incoming "value" and places it into the associated field
@@ -168,7 +168,7 @@ namespace Hockey.Data
                 //    to set another field
 
                 // Ensure the incoming value is not null, empty, or whitespace (invalid values)
-                if (Utils.IsNullEmptyOrWhiteSpace(value))
+                if (Utils.Utilities.IsNullEmptyOrWhiteSpace(value))
                 {
                     throw new ArgumentException($"First name cannot be null or empty.");
                 }
@@ -187,9 +187,9 @@ namespace Hockey.Data
             {
                 return _lastName;
             }
-            init
+            private set
             {
-                if (Utils.IsNullEmptyOrWhiteSpace(value))
+                if (Utils.Utilities.IsNullEmptyOrWhiteSpace(value))
                 {
                     throw new ArgumentException($"Last name cannot be null or empty.");
                 }
@@ -207,9 +207,9 @@ namespace Hockey.Data
             {
                 return _birthPlace;
             }
-            init
+            private set
             {
-                if (Utils.IsNullEmptyOrWhiteSpace(value))
+                if (Utils.Utilities.IsNullEmptyOrWhiteSpace(value))
                 {
                     throw new ArgumentException($"Birth place cannot be null or empty.");
                 }
@@ -227,9 +227,9 @@ namespace Hockey.Data
             {
                 return _dateOfBirth;
             }
-            init
+            private set
             {
-                if (Utils.IsInTheFuture(value))
+                if (Utils.Utilities.IsInTheFuture(value))
                 {
                     throw new ArgumentException($"Date of birth cannot be in the future.");
                 }
@@ -247,9 +247,9 @@ namespace Hockey.Data
             {
                 return _heightInInches;
             }
-            init
+            private set
             {
-                if (Utils.IsZeroOrNegative(value))
+                if (Utils.Utilities.IsZeroOrNegative(value))
                 {
                     throw new ArgumentException($"Height must be positive.");
                 }
@@ -267,9 +267,9 @@ namespace Hockey.Data
             {
                 return _weightInPounds;
             }
-            init
+            private set
             {
-                if (!Utils.IsPositive(value))
+                if (!Utils.Utilities.IsPositive(value))
                 {
                     throw new ArgumentException($"Weight must be positive.");
                 }

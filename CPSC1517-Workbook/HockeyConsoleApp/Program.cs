@@ -1,5 +1,5 @@
 ﻿using Hockey.Data;
-using Utilities;
+using Utils;
 
 Console.WriteLine("Welcome to the HockeyPlayer Test App");
 
@@ -19,7 +19,7 @@ HockeyPlayer player2 = new HockeyPlayer("Bobby", "Orr", "Parry Sound, ON", new D
 //player1.DateOfBirth = new DateOnly(1979, 10, 12);
 
 // Testing overloaded IsInTheFuture
-Console.WriteLine($"Date in future? {Utils.IsInTheFuture(new DateTime(2023, 9,12))}");
+Console.WriteLine($"Date in future? {Utils.Utilities.IsInTheFuture(new DateTime(2023, 9,12))}");
 
 // Everything but the Age can be done day one of week two
 // Console.WriteLine($"The player's name is {player1.ToString()}, they are born {player1.DateOfBirth} and are {player1.Age} years old.");
