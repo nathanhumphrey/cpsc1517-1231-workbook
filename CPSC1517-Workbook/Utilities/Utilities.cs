@@ -21,7 +21,7 @@
         /// <returns>True if positive, false otherwise</returns>
         public static bool IsPositive(int value)
         {
-            // The following statement makes use of the condition or ternary
+            // The following statement makes use of the conditional or ternary
             // operator. The operator evaluates a boolean expression and 
             // returns the result of one of the following expressions: the 
             // expression following the '?' if the expression is true, and
