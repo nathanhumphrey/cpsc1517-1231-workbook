@@ -26,6 +26,10 @@
             // returns the result of one of the following expressions: the 
             // expression following the '?' if the expression is true, and
             // the expression following the ':' if the expression is false.
+            //
+            // It's not needed here (we could just return the expressio), but
+            // it is a simple place to introduce and use the operator.
+            //
             // Read more here: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator
             return value > 0 ? true : false;
         }
@@ -37,7 +41,7 @@
         /// <returns>True if negative, false otherwise</returns>
         public static bool IsNegative(int value)
         {
-            return value < 0 ? false : true;
+            return value < 0;
         }
         // The following is an example of an expression-bodied method
 
@@ -55,6 +59,69 @@
         /// <returns>True if zero or negative, false otherwise</returns>
         public static bool IsZeroOrNegative(int value) => value <= 0;
 
+        // The following two methods are named the same, but have differing method
+        // signatures. This is technique is known as overloading methods. In this
+        // way, we can call the same method but passing in different parameters,
+        // which enables the system to determine which version of the method to execute.
+        // Read more here: https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/member-overloading
+
+        /// <summary>
+        /// Tests for a positive double value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>True if positive, false otherwise</returns>
+        public static bool IsPositive(double value) => value > 0.0;
+
+        /// <summary>
+        /// Tests for a negative double value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>True if negative, false otherwise</returns>
+        public static bool IsNegative(double value) => value < 0.0;
+
+        /// <summary>
+        /// Tests for a zero or positive double value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>True if zero or positive, false otherwise</returns>
+        public static bool IsZeroOrPositive(double value) => value >= 0.0;
+
+        /// <summary>
+        /// Tests for a zero or negative double value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>True if zero or negative, false otherwise</returns>
+        public static bool IsZeroOrNegative(double value) => value <= 0.0;
+
+        /// <summary>
+        /// Tests for a positive decimal value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>True if positive, false otherwise</returns>
+        public static bool IsPositive(decimal value) => value > 0;
+
+        /// <summary>
+        /// Tests for a negative decimal value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>True if negative, false otherwise</returns>
+        public static bool IsNegative(decimal value) => value < 0;
+
+        /// <summary>
+        /// Tests for a zero or positive decimal value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>True if zero or positive, false otherwise</returns>
+        public static bool IsZeroOrPositive(decimal value) => value >= 0;
+
+        /// <summary>
+        /// Tests for a zero or negative decimal value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>True if zero or negative, false otherwise</returns>
+        public static bool IsZeroOrNegative(decimal value) => value <= 0;
+
+
         // String Validators
         // ==============================================================================
 
@@ -68,12 +135,6 @@
 
         // Date Validators
         // ==============================================================================
-
-        // The following two methods are named the same, but have differing method
-        // signatures. This is technique is known as overloading methods. In this
-        // way, we can call the same method but passing in different parameters,
-        // which enables the system to determine which version of the method to execute.
-        // Read more here: https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/member-overloading
 
         /// <summary>
         /// Tests for a DateTime in the future from now
