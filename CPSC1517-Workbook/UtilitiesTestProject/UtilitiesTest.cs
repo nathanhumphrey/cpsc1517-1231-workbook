@@ -245,7 +245,7 @@ namespace UtilitiesTestProject
         // String Tests
 
         // Date Tests
-        public static IEnumerable<object[]> GenerateAgeTestData()
+        public static IEnumerable<object[]> GenerateIsInFutureTestData()
         {
             // DateTime
             yield return new object[]
@@ -282,7 +282,7 @@ namespace UtilitiesTestProject
         }
 
         [Theory]
-        [MemberData(nameof(GenerateAgeTestData))]
+        [MemberData(nameof(GenerateIsInFutureTestData))]
         public void Utils_IsInTheFuture_ReturnsTrueForFutureFalseOtherwise(object date, bool expected)
         {
             // Arrange
