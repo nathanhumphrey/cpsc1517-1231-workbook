@@ -1,7 +1,6 @@
 using FluentAssertions;
 using Hockey.Data;
 using System.Collections;
-using System.Numerics;
 
 namespace Hockey.Test
 {
@@ -14,6 +13,7 @@ namespace Hockey.Test
         static readonly DateOnly DATE_OF_BIRTH = new DateOnly(1994, 01, 14);
         const int HEIGHT_IN_INCHES = 72;
         const int WEIGHT_IN_LBS = 188;
+        const int JERSEY_NUMBER = 28;
         const Position POSITION = Position.Center;
         const Shot SHOT = Shot.Left;
         // The following relies on our being correct here - not writing a test for the test expected value
@@ -29,7 +29,7 @@ namespace Hockey.Test
 
         public HockeyPlayer CreateTestHockeyPlayer()
         {
-            return new HockeyPlayer(FIRST_NAME, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT);
+            return new HockeyPlayer(FIRST_NAME, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, JERSEY_NUMBER, POSITION, SHOT);
         }
 
         // Test data generateor for class data (see line 85 below)
@@ -38,9 +38,9 @@ namespace Hockey.Test
             private readonly List<object[]> _data = new List<object[]>
             {
                 // First Name tests
-                new object[]{"", LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT, "First name cannot be null or empty." },
-                new object[]{" ", LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT, "First name cannot be null or empty." },
-                new object[]{null, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT, "First name cannot be null or empty." },
+                new object[]{"", LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, JERSEY_NUMBER, POSITION, SHOT, "First name cannot be null or empty." },
+                new object[]{" ", LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, JERSEY_NUMBER, POSITION, SHOT, "First name cannot be null or empty." },
+                new object[]{null, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, JERSEY_NUMBER, POSITION, SHOT, "First name cannot be null or empty." },
 
                 // TODO: complete remaining private set tests
             };
@@ -56,7 +56,7 @@ namespace Hockey.Test
             // Yield as many test objects as desired/required
             yield return new object[]
             {
-               FIRST_NAME, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT,
+               FIRST_NAME, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, JERSEY_NUMBER, POSITION, SHOT,
             };
         }
 
@@ -81,14 +81,14 @@ namespace Hockey.Test
         //[ClassData(typeof(TestHockeyPlayerGenerator))]
         [MemberData(nameof(GoodHockeyPlayerTestDataGenerator))]
         public void HockeyPlayer_GreedyConstructor_ReturnsHockeyPlayer(string firstName, string lastName, string birthPlace,
-            DateOnly dateOfBirth, int weightInPounds, int heightInInches, Position position, Shot shot)
+            DateOnly dateOfBirth, int weightInPounds, int heightInInches, int jerseyNumber, Position position, Shot shot)
         {
             // TODO: describe and explain the issue(s) with performing the test in this way - use a ClassData or MemberData option
             //HockeyPlayer sut = new HockeyPlayer("Connor", "Brown", "Toronto, ON, CAN", new DateOnly(1994, 01, 14), 82, 183, Position.Center, Shot.Right);
 
             HockeyPlayer actual;
             
-            actual = new HockeyPlayer(firstName, lastName, birthPlace, dateOfBirth, weightInPounds, heightInInches, position, shot);
+            actual = new HockeyPlayer(firstName, lastName, birthPlace, dateOfBirth, weightInPounds, heightInInches, jerseyNumber ,position, shot);
             
             actual.Should().NotBeNull();
         }
@@ -96,13 +96,42 @@ namespace Hockey.Test
         [Theory]
         [ClassData(typeof(BadHockeyPlayerTestDataGenerator))]
         public void HockeyPlayer_GreedyConstructor_ThrowsException(string firstName, string lastName, string birthPlace,
-            DateOnly dateOfBirth, int weightInPounds, int heightInInches, Position position, Shot shot, string errMsg)
+            DateOnly dateOfBirth, int weightInPounds, int heightInInches, int jerseyNumber, Position position, Shot shot, string errMsg)
         {
             // Arrange
-            Action act = () => new HockeyPlayer(firstName, lastName, birthPlace, dateOfBirth, weightInPounds, heightInInches, position, shot);
+            Action act = () => new HockeyPlayer(firstName, lastName, birthPlace, dateOfBirth, weightInPounds, heightInInches, jerseyNumber, position, shot);
 
             // Act/Assert
             act.Should().Throw<ArgumentException>().WithMessage(errMsg);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(98)]
+        public void HockeyPlayer_JerseyNumber_GoodSetAndGet(int value)
+        {
+            // Arrange 
+            HockeyPlayer player = CreateTestHockeyPlayer();
+
+            // Act
+            player.JerseyNumber = value;
+            int actual = player.JerseyNumber;
+
+            // Assert
+            actual.Should().Be(value);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(99)]
+        public void HockeyPlayer_JerseyNumber_BadSetThrows(int value)
+        {
+            // Arrange 
+            HockeyPlayer player = CreateTestHockeyPlayer();
+            Action act = () => player.JerseyNumber = value;
+
+            // Act/Assert
+            act.Should().Throw<ArgumentException>().WithMessage("Jersey number must be between 1 and 98.");
         }
 
         [Fact]

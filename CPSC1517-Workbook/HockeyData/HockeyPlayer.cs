@@ -25,6 +25,7 @@ namespace Hockey.Data
         private DateOnly _dateOfBirth;
         private int _weightInPounds;
         private int _heightInInches;
+        private int _jerseyNumber;
         // The following are unnecessary as enums are used
         // private Position _position = Position.Center;
         // private Shot _shot;
@@ -94,10 +95,11 @@ namespace Hockey.Data
         /// <param name="dateOfBirth"></param>
         /// <param name="weightInPounds"></param>
         /// <param name="heightInInches"></param>
+        /// <param name="jerseyNumber"></param>
         /// <param name="position"></param>
         /// <param name="shot"></param>
         public HockeyPlayer(string firstName, string lastName, string birthPlace, DateOnly dateOfBirth,
-            int weightInPounds, int heightInInches, Position position = Position.Center, Shot shot = Shot.Right)
+            int weightInPounds, int heightInInches, int jerseyNumber, Position position = Position.Center, Shot shot = Shot.Right)
         {
             // Constructor body:
             // a) A parameter for every property
@@ -111,6 +113,7 @@ namespace Hockey.Data
             DateOfBirth = dateOfBirth;
             WeightInPounds = weightInPounds;
             HeightInInches = heightInInches;
+            JerseyNumber = jerseyNumber;
             Shot = shot;
             Position = position;
         }
@@ -295,6 +298,27 @@ namespace Hockey.Data
         /// Represents the player's shot hand
         /// </summary>
         public Shot Shot { get; set; }
+        
+        /// <summary>
+        /// Represents the player's jersey number
+        /// </summary>
+        public int JerseyNumber
+        {
+            get
+            {
+                return _jerseyNumber;
+            }
+
+            set
+            {
+                if (value < 1 || value > 98)
+                {
+                    throw new ArgumentException("Jersey number must be between 1 and 98.");
+                }
+
+                _jerseyNumber = value;
+            }
+        }
 
         // Derived property using expresion-bodied property
         // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members
