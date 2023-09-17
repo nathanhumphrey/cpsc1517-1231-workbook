@@ -27,6 +27,11 @@ namespace Hockey.Test
         //    AGE.Should().Be(29);
         //}
 
+        public HockeyPlayer CreateTestHockeyPlayer()
+        {
+            return new HockeyPlayer(FIRST_NAME, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT);
+        }
+
         // Test data generateor for class data (see line 85 below)
         private class BadHockeyPlayerTestDataGenerator : IEnumerable<object[]>
         {
@@ -36,6 +41,8 @@ namespace Hockey.Test
                 new object[]{"", LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT, "First name cannot be null or empty." },
                 new object[]{" ", LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT, "First name cannot be null or empty." },
                 new object[]{null, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT, "First name cannot be null or empty." },
+
+                // TODO: complete remaining private set tests
             };
 
             public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
@@ -44,12 +51,12 @@ namespace Hockey.Test
         }
 
         // Alternative test data generator for member data (see line 97 below)
-        public static IEnumerable<object[]> GetTestHockeyPlayer()
+        public static IEnumerable<object[]> GoodHockeyPlayerTestDataGenerator()
         {
-            // Add as many test objects as desired/required
+            // Yield as many test objects as desired/required
             yield return new object[]
             {
-                new HockeyPlayer(FIRST_NAME, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT)
+               FIRST_NAME, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, POSITION, SHOT,
             };
         }
 
@@ -72,18 +79,23 @@ namespace Hockey.Test
         //[Fact]
         [Theory]
         //[ClassData(typeof(TestHockeyPlayerGenerator))]
-        [MemberData(nameof(GetTestHockeyPlayer))]
-        public void HockeyPlayer_GreedyConstructor_ReturnsHockeyPlayer(HockeyPlayer sut)
+        [MemberData(nameof(GoodHockeyPlayerTestDataGenerator))]
+        public void HockeyPlayer_GreedyConstructor_ReturnsHockeyPlayer(string firstName, string lastName, string birthPlace,
+            DateOnly dateOfBirth, int weightInPounds, int heightInInches, Position position, Shot shot)
         {
             // TODO: describe and explain the issue(s) with performing the test in this way - use a ClassData or MemberData option
             //HockeyPlayer sut = new HockeyPlayer("Connor", "Brown", "Toronto, ON, CAN", new DateOnly(1994, 01, 14), 82, 183, Position.Center, Shot.Right);
 
-            sut.Should().NotBeNull();
+            HockeyPlayer actual;
+            
+            actual = new HockeyPlayer(firstName, lastName, birthPlace, dateOfBirth, weightInPounds, heightInInches, position, shot);
+            
+            actual.Should().NotBeNull();
         }
 
         [Theory]
         [ClassData(typeof(BadHockeyPlayerTestDataGenerator))]
-        public void HockeyPlayer_GreedyConstructor_ThrowsException(string firstName, string lastName, string birthPlace, 
+        public void HockeyPlayer_GreedyConstructor_ThrowsException(string firstName, string lastName, string birthPlace,
             DateOnly dateOfBirth, int weightInPounds, int heightInInches, Position position, Shot shot, string errMsg)
         {
             // Arrange
@@ -93,23 +105,26 @@ namespace Hockey.Test
             act.Should().Throw<ArgumentException>().WithMessage(errMsg);
         }
 
-        [Theory]
-        [MemberData(nameof(GetTestHockeyPlayer))]
-        public void HockeyPlayer_Age_ReturnsCorrectAge(HockeyPlayer sut)
+        [Fact]
+        public void HockeyPlayer_Age_ReturnsCorrectAge()
         {
+            // Arrange 
+            HockeyPlayer player = CreateTestHockeyPlayer();
+
             // Act
-            int actual = sut.Age;
+            int actual = player.Age;
 
             // Assert
             actual.Should().Be(AGE);
         }
 
-        [Theory]
-        [MemberData(nameof(GetTestHockeyPlayer))]
-        public void HockeyPlayer_ToString_ReturnsCorrectValue(HockeyPlayer sut)
+        [Fact]
+        public void HockeyPlayer_ToString_ReturnsCorrectValue()
         {
+            // Arrange 
+            HockeyPlayer player = CreateTestHockeyPlayer();
             // Act
-            string actual = sut.ToString();
+            string actual = player.ToString();
 
             // Assert
             actual.Should().Be(TOSTRING_VALUE);
