@@ -7,18 +7,18 @@ namespace Hockey.Test
     public class HockeyPlayerTest
     {
         // Constants for test HockeyPlayer
-        const string FIRST_NAME = "Connor";
-        const string LAST_NAME = "Brown";
-        const string BIRTH_PLACE = "Toronto, ON, CAN";
-        static readonly DateOnly DATE_OF_BIRTH = new DateOnly(1994, 01, 14);
-        const int HEIGHT_IN_INCHES = 72;
-        const int WEIGHT_IN_LBS = 188;
-        const int JERSEY_NUMBER = 28;
-        const Position POSITION = Position.Center;
-        const Shot SHOT = Shot.Left;
+        const string FirstName = "Connor";
+        const string LastName = "Brown";
+        const string BirthPlace = "Toronto, ON, CAN";
+        static readonly DateOnly DateOfBirth = new DateOnly(1994, 01, 14);
+        const int HeightInInches = 72;
+        const int WeightInInches = 188;
+        const int JerseyNumber = 28;
+        const Position PlayerPosition = Position.Center;
+        const Shot PlayerShot = Shot.Left;
         // The following relies on our being correct here - not writing a test for the test expected value
-        readonly int AGE = (DateOnly.FromDateTime(DateTime.Now).DayNumber - DATE_OF_BIRTH.DayNumber) / 365;
-        const string TOSTRING_VALUE = $"{FIRST_NAME} {LAST_NAME}";
+        readonly int Age = (DateOnly.FromDateTime(DateTime.Now).DayNumber - DateOfBirth.DayNumber) / 365;
+        const string ToStringValue = $"{FirstName} {LastName}";
 
         // Can quickly run a test to check our method for AGE above
         //[Fact]
@@ -29,7 +29,7 @@ namespace Hockey.Test
 
         public HockeyPlayer CreateTestHockeyPlayer()
         {
-            return new HockeyPlayer(FIRST_NAME, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, JERSEY_NUMBER, POSITION, SHOT);
+            return new HockeyPlayer(FirstName, LastName, BirthPlace, DateOfBirth, HeightInInches, WeightInInches, JerseyNumber, PlayerPosition, PlayerShot);
         }
 
         // Test data generateor for class data (see line 85 below)
@@ -38,9 +38,9 @@ namespace Hockey.Test
             private readonly List<object[]> _data = new List<object[]>
             {
                 // First Name tests
-                new object[]{"", LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, JERSEY_NUMBER, POSITION, SHOT, "First name cannot be null or empty." },
-                new object[]{" ", LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, JERSEY_NUMBER, POSITION, SHOT, "First name cannot be null or empty." },
-                new object[]{null, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, JERSEY_NUMBER, POSITION, SHOT, "First name cannot be null or empty." },
+                new object[]{"", LastName, BirthPlace, DateOfBirth, HeightInInches, WeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "First name cannot be null or empty." },
+                new object[]{" ", LastName, BirthPlace, DateOfBirth, HeightInInches, WeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "First name cannot be null or empty." },
+                new object[]{null, LastName, BirthPlace, DateOfBirth, HeightInInches, WeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "First name cannot be null or empty." },
 
                 // TODO: complete remaining private set tests
             };
@@ -56,7 +56,7 @@ namespace Hockey.Test
             // Yield as many test objects as desired/required
             yield return new object[]
             {
-               FIRST_NAME, LAST_NAME, BIRTH_PLACE, DATE_OF_BIRTH, HEIGHT_IN_INCHES, WEIGHT_IN_LBS, JERSEY_NUMBER, POSITION, SHOT,
+               FirstName, LastName, BirthPlace, DateOfBirth, HeightInInches, WeightInInches, JerseyNumber, PlayerPosition, PlayerShot,
             };
         }
 
@@ -144,7 +144,7 @@ namespace Hockey.Test
             int actual = player.Age;
 
             // Assert
-            actual.Should().Be(AGE);
+            actual.Should().Be(Age);
         }
 
         [Fact]
@@ -156,7 +156,7 @@ namespace Hockey.Test
             string actual = player.ToString();
 
             // Assert
-            actual.Should().Be(TOSTRING_VALUE);
+            actual.Should().Be(ToStringValue);
         }
     }
 }

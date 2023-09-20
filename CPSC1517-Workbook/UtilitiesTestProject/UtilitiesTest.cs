@@ -5,7 +5,98 @@ namespace UtilitiesTestProject
 {
     public class UtilitiesTest
     {
+        // String Tests
+
+        [Fact]
+        public void Utilities_IsNullEmptyOrWhiteSpace_ReturnsFalseForNonEmpty()
+        {
+            // Arrange
+            const string GoodString = "x";
+            bool actual;
+
+            // Act 
+            actual = Utilities.IsNullEmptyOrWhiteSpace(GoodString);
+
+            actual.Should().Be(false);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void Utilities_IsNullEmptyOrWhiteSpace_ReturnsTrueForEmpyNullOrWhiteSpace(string value)
+        {
+            // Arrange
+            bool actual;
+
+            // Act 
+            actual = Utilities.IsNullEmptyOrWhiteSpace(value);
+
+            actual.Should().Be(true);
+        }
+
+        // Date Tests
+
+        public static IEnumerable<object[]> GenerateIsInFutureTestData()
+        {
+            // DateTime
+            yield return new object[]
+            {
+                DateTime.Now,
+                false,
+            };
+            yield return new object[]
+            {
+                DateTime.Now.Subtract(TimeSpan.FromMilliseconds(100)),
+                false,
+            };
+            yield return new object[]
+            {
+                DateTime.Now.Add(TimeSpan.FromMilliseconds(100)),
+                true,
+            };
+            // DateOnly
+            yield return new object[]
+            {
+                DateOnly.FromDateTime(DateTime.Now),
+                false,
+            };
+            yield return new object[]
+            {
+                DateOnly.FromDateTime(DateTime.Now).AddDays(-1),
+                false,
+            };
+            yield return new object[]
+            {
+                DateOnly.FromDateTime(DateTime.Now).AddDays(1),
+                true,
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GenerateIsInFutureTestData))]
+        public void Utils_IsInTheFuture_ReturnsTrueForFutureFalseOtherwise(object date, bool expected)
+        {
+            // Arrange
+            bool actual;
+
+            // Act
+            if (date.GetType() == typeof(DateTime))
+            {
+                actual = Utilities.IsInTheFuture((DateTime)date);
+            }
+            else
+            {
+                actual = Utilities.IsInTheFuture((DateOnly)date);
+            }
+
+            // Assert
+            actual.Should().Be(expected);
+
+        }
+
         // Numeric Tests
+
         [Theory]
         [InlineData(1)]
         [InlineData(1.0D)]
@@ -241,95 +332,5 @@ namespace UtilitiesTestProject
             // Assert
             expected.Should().BeFalse();
         }
-
-        // String Tests
-
-        // Date Tests
-        public static IEnumerable<object[]> GenerateIsInFutureTestData()
-        {
-            // DateTime
-            yield return new object[]
-            {
-                DateTime.Now,
-                false,
-            };
-            yield return new object[]
-            {
-                DateTime.Now.Subtract(TimeSpan.FromMilliseconds(100)),
-                false,
-            };
-            yield return new object[]
-            {
-                DateTime.Now.Add(TimeSpan.FromMilliseconds(100)),
-                true,
-            };
-            // DateOnly
-            yield return new object[]
-            {
-                DateOnly.FromDateTime(DateTime.Now),
-                false,
-            };
-            yield return new object[]
-            {
-                DateOnly.FromDateTime(DateTime.Now).AddDays(-1),
-                false,
-            };
-            yield return new object[]
-            {
-                DateOnly.FromDateTime(DateTime.Now).AddDays(1),
-                true,
-            };
-        }
-
-        [Theory]
-        [MemberData(nameof(GenerateIsInFutureTestData))]
-        public void Utils_IsInTheFuture_ReturnsTrueForFutureFalseOtherwise(object date, bool expected)
-        {
-            // Arrange
-            bool actual;
-
-            // Act
-            if (date.GetType() == typeof(DateTime))
-            {
-                actual = Utilities.IsInTheFuture((DateTime)date);
-            }
-            else
-            {
-                actual = Utilities.IsInTheFuture((DateOnly)date);
-            }
-
-            // Assert
-            actual.Should().Be(expected);
-
-        }
-
-        [Theory]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData(null)]
-        public void Utilities_IsNullEmptyOrWhiteSpace_ReturnsTrueForEmpyNullOrWhiteSpace(string value)
-        {
-            // Arrange
-            bool actual;
-
-            // Act 
-            actual = Utilities.IsNullEmptyOrWhiteSpace(value);
-
-            actual.Should().Be(true);
-        }
-
-        [Fact]
-        public void Utilities_IsNullEmptyOrWhiteSpace_ReturnsFalseForNonEmpty()
-        {
-            // Arrange
-            const string GOOD_STRING = "x";
-            bool actual;
-
-            // Act 
-            actual = Utilities.IsNullEmptyOrWhiteSpace(GOOD_STRING);
-
-            actual.Should().Be(false);
-        }
-
     }
 }
