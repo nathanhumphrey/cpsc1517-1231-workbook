@@ -171,7 +171,7 @@ namespace Hockey.Data
                 //    to set another field
 
                 // Ensure the incoming value is not null, empty, or whitespace (invalid values)
-                if (Utils.Utilities.IsNullEmptyOrWhiteSpace(value))
+                if (Utilities.IsNullEmptyOrWhiteSpace(value))
                 {
                     throw new ArgumentException($"First name cannot be null or empty.");
                 }
@@ -192,7 +192,7 @@ namespace Hockey.Data
             }
             private set
             {
-                if (Utils.Utilities.IsNullEmptyOrWhiteSpace(value))
+                if (Utilities.IsNullEmptyOrWhiteSpace(value))
                 {
                     throw new ArgumentException($"Last name cannot be null or empty.");
                 }
@@ -212,7 +212,7 @@ namespace Hockey.Data
             }
             private set
             {
-                if (Utils.Utilities.IsNullEmptyOrWhiteSpace(value))
+                if (Utilities.IsNullEmptyOrWhiteSpace(value))
                 {
                     throw new ArgumentException($"Birth place cannot be null or empty.");
                 }
@@ -232,7 +232,7 @@ namespace Hockey.Data
             }
             private set
             {
-                if (Utils.Utilities.IsInTheFuture(value))
+                if (Utilities.IsInTheFuture(value))
                 {
                     throw new ArgumentException($"Date of birth cannot be in the future.");
                 }
@@ -252,7 +252,7 @@ namespace Hockey.Data
             }
             private set
             {
-                if (Utils.Utilities.IsZeroOrNegative(value))
+                if (Utilities.IsZeroOrNegative(value))
                 {
                     throw new ArgumentException($"Height must be positive.");
                 }
@@ -272,7 +272,7 @@ namespace Hockey.Data
             }
             private set
             {
-                if (!Utils.Utilities.IsPositive(value))
+                if (!Utilities.IsPositive(value))
                 {
                     throw new ArgumentException($"Weight must be positive.");
                 }
