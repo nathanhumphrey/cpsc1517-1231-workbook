@@ -3,8 +3,15 @@
   <Class Name="Hockey.Data.HockeyPlayer">
     <Position X="2.25" Y="1.5" Width="9.5" />
     <TypeIdentifier>
-      <HashCode>CCEAAEAAAAAAABAkAEGAAAAAAAAYQAAAAAQAAAAQAAg=</HashCode>
+      <HashCode>CCEAAEAAAAAEABAkAEGAAAAAAACYQAAAAAQAAAAQAAg=</HashCode>
       <FileName>HockeyPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hockey.Data.HockeyTeam">
+    <Position X="2.25" Y="6.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAMABAAQAQAAAAgABAAAAgAAAAACAA=</HashCode>
+      <FileName>HockeyTeam.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="Hockey.Data.Position">
