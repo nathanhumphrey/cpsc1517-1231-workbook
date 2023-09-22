@@ -5,9 +5,10 @@
     /// </summary>
     public class HockeyTeam
     {
-        private static int MinPlayers = 20;
-        private static int MaxPlayers = 23;
-        private static int MaxGoalies = 3;
+        private int MinPlayers = 20;
+        private int MaxPlayers = 23;
+        private int MinGoalies = 2;
+        private int MaxGoalies = 3;
 
         /// <summary>
         /// Hockey team roster
@@ -44,25 +45,40 @@
                     }
                 ).Count;
                 
-                return TotalPlayers >= MinPlayers && TotalPlayers <= MaxPlayers && numOfGoalies >= 2 && numOfGoalies <= 3;
+                return TotalPlayers >= MinPlayers && TotalPlayers <= MaxPlayers && numOfGoalies >= MinGoalies && numOfGoalies <= MaxGoalies;
             }
         }
 
         /// <summary>
-        /// Creates a default instance of a HockeyTeam
+        /// Creates a new hockey team
         /// </summary>
-        public HockeyTeam() { }
+        /// <param name="city">Home city for the team</param>
+        /// <param name="name">Team name</param>
+        /// <exception cref="ArgumentException">Throws if eitehr the city or name are empty</exception>
+        public HockeyTeam(string city, string name) { 
+            if (string.IsNullOrWhiteSpace(city))
+            {
+                throw new ArgumentException("City cannot be empty.");
+            }
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Name cannot be empty.");
+            }
+
+            City = city;
+            Name = name;
+        }
 
         /// <summary>
         /// Adds a hockey player to the roster.
         /// </summary>
         /// <param name="player">The HockeyPlayer to add</param>
-        /// <exception cref="InvalidOperationException">If the maximum number of players has already been reached</exception>
         public void AddPlayer(HockeyPlayer player)
         {
-            if (TotalPlayers == MaxPlayers)
+            if (player == null)
             {
-                throw new InvalidOperationException($"Cannot exceed {MaxPlayers} on a team.");
+                throw new ArgumentNullException("Player cannot be null.");
             }
 
             Players.Add(player);
@@ -75,6 +91,11 @@
         /// <exception cref="InvalidOperationException">If the player is not on the team</exception>
         public void RemovePlayer(HockeyPlayer player)
         {
+            if (player == null)
+            {
+                throw new ArgumentNullException("Player cannot be null.");
+            }
+
             if (!Players.Contains(player))
             {
                 throw new InvalidOperationException($"Player {player} is not on the team.");

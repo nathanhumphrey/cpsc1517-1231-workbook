@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="Hockey.Data.HockeyPlayer">
+  <Class Name="Hockey.Data.HockeyPlayer" Collapsed="true">
     <Position X="2.25" Y="1.5" Width="9.5" />
     <TypeIdentifier>
       <HashCode>CCEAAEAAAAAEABAkAEGAAAAAAACYQAAAAAQAAAAQAAg=</HashCode>
@@ -8,20 +8,20 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Hockey.Data.HockeyTeam">
-    <Position X="2.25" Y="6.75" Width="3.25" />
+    <Position X="2.25" Y="2.25" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAMABAAQAQAAAAgABAAAAgAAAAACAA=</HashCode>
       <FileName>HockeyTeam.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="Hockey.Data.Position">
+  <Enum Name="Hockey.Data.Position" Collapsed="true">
     <Position X="12" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAACAAAAAAAAAAAAAAAAAIAAAAAAAAAgAIAAA=</HashCode>
       <FileName>Position.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Hockey.Data.Shot">
+  <Enum Name="Hockey.Data.Shot" Collapsed="true">
     <Position X="12" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAA=</HashCode>
