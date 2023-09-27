@@ -39,9 +39,12 @@
             get
             {
                 // Using built-in FindAll with Predicate
-                int numOfGoalies = Players.FindAll(
-                    (HockeyPlayer player) => player.Position == Position.Goalie
-                ).Count;
+                //int numOfGoalies = Players.FindAll(
+                //    (HockeyPlayer player) => player.Position == Position.Goalie
+                //).Count;
+
+                // Using LINQ
+                int numOfGoalies = Players.Where(p => p.Position == Position.Goalie).Count();
 
                 return TotalPlayers >= MinPlayers && TotalPlayers <= MaxPlayers && numOfGoalies >= MinGoalies && numOfGoalies <= MaxGoalies;
             }
