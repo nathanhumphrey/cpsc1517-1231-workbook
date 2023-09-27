@@ -5,10 +5,10 @@
     /// </summary>
     public class HockeyTeam
     {
-        private int MinPlayers = 20;
-        private int MaxPlayers = 23;
-        private int MinGoalies = 2;
-        private int MaxGoalies = 3;
+        private const int MinPlayers = 20;
+        private const int MaxPlayers = 23;
+        private const int MinGoalies = 2;
+        private const int MaxGoalies = 3;
 
         /// <summary>
         /// Hockey team roster
