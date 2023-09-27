@@ -6,15 +6,15 @@ namespace ObjectClassLibraryTest
 {
     public class BodyMassIndexTest
     {
-        const string NAME = "Jack Black";
-        const double WEIGHT = 180;
-        const double HEIGHT = 65;
-        const double BMI_VALUE = 30.0;
-        const string BMI_CATEGORY_VALUE = "obese";
+        const string Name = "Jack Black";
+        const double Weight = 180;
+        const double Height = 65;
+        const double BmiValue = 30.0;
+        const string BmiCategoryValue = "obese";
 
         private static BodyMassIndex GenerateBodyMassIndexInstance()
         {
-            return new BodyMassIndex(NAME, WEIGHT, HEIGHT);
+            return new BodyMassIndex(Name, Weight, Height);
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace ObjectClassLibraryTest
             actual = bmi.Bmi();
 
             // Assert
-            actual.Should().Be(BMI_VALUE);
+            actual.Should().Be(BmiValue);
         }
 
         [Fact]
@@ -42,12 +42,12 @@ namespace ObjectClassLibraryTest
             actual = bmi.BmiCategory();
 
             // Assert
-            actual.Should().Be(BMI_CATEGORY_VALUE);
+            actual.Should().Be(BmiCategoryValue);
         }
 
         [Theory]
-        [InlineData("", WEIGHT, HEIGHT)]
-        [InlineData("  ", WEIGHT, HEIGHT)]
+        [InlineData("", Weight, Height)]
+        [InlineData("  ", Weight, Height)]
         public void BodyMassIndex_Constructor_ThrowsForEmptyName(string name, double weight, double height)
         {
             // Arrange
@@ -59,8 +59,8 @@ namespace ObjectClassLibraryTest
         }
 
         [Theory]
-        [InlineData(NAME, 0, HEIGHT)]
-        [InlineData(NAME, -100, HEIGHT)]
+        [InlineData(Name, 0, Height)]
+        [InlineData(Name, -100, Height)]
         public void BodyMassIndex_Constructor_ThrowsForNonPositiveWeight(string name, double weight, double height)
         {
             // Arrange
@@ -72,8 +72,8 @@ namespace ObjectClassLibraryTest
         }
 
         [Theory]
-        [InlineData(NAME, WEIGHT, 0)]
-        [InlineData(NAME, WEIGHT, -100)]
+        [InlineData(Name, Weight, 0)]
+        [InlineData(Name, Weight, -100)]
         public void BodyMassIndex_Constructor_ThrowsForNonPositiveHeight(string name, double weight, double height)
         {
             // Arrange
