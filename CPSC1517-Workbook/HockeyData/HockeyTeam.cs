@@ -38,13 +38,11 @@
         {
             get
             {
+                // Using built-in FindAll with Predicate
                 int numOfGoalies = Players.FindAll(
-                    delegate (HockeyPlayer player)
-                    {
-                        return player.Position == Position.Goalie;
-                    }
+                    (HockeyPlayer player) => player.Position == Position.Goalie
                 ).Count;
-                
+
                 return TotalPlayers >= MinPlayers && TotalPlayers <= MaxPlayers && numOfGoalies >= MinGoalies && numOfGoalies <= MaxGoalies;
             }
         }
