@@ -86,19 +86,20 @@
         {
             string category = "Unknown";
             double bmiValue = Bmi();
+            // FIX: Missing 'else' for second and subsequent 'if' conditions
             if (bmiValue < 18.5)
             {
                 category = "underweight";
             }
-            if (bmiValue < 24.9)
+            else if (bmiValue < 24.9)
             {
                 category = "normal";
             }
-            if (bmiValue < 29.9)
+            else if (bmiValue < 29.9)
             {
                 category = "overweight";
             }
-            if (bmiValue >= 30)
+            else if (bmiValue >= 30)
             {
                 category = "obese";
             }

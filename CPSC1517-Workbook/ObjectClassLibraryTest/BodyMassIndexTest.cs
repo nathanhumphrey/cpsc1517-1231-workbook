@@ -85,8 +85,8 @@ namespace ObjectClassLibraryTest
         }
 
         [Theory]
-        [InlineData("Underweight Person1", 90, 60, "overweight", 17.6)]
-        [InlineData("Underweight Person2", 120, 75, "overweight", 15.0)]
+        [InlineData("Underweight Person1", 90, 60, "underweight", 17.6)]
+        [InlineData("Underweight Person2", 120, 75, "underweight", 15.0)]
         public void BodyMassIndex_BmiCategory_ReturnsUnderweightCategory(string name, double weight, double height, string expectedCategory, double expectedBmi)
         {
             // Arrange
@@ -105,8 +105,8 @@ namespace ObjectClassLibraryTest
         }
 
         [Theory]
-        [InlineData("Normal weight Person1", 111, 65, "overweight", 18.5)]
-        [InlineData("Normal weight Person2", 149, 65, "overweight", 24.8)]
+        [InlineData("Normal weight Person1", 111, 65, "normal", 18.5)]
+        [InlineData("Normal weight Person2", 149, 65, "normal", 24.8)]
         public void BodyMassIndex_BmiCategory_ReturnsNormalWeightCategory(string name, double weight, double height, string expectedCategory, double expectedBmi)
         {
             // Arrange
