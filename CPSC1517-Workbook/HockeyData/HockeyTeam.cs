@@ -43,9 +43,15 @@
                 //    (HockeyPlayer player) => player.Position == Position.Goalie
                 //).Count;
 
-                // Using LINQ
-                int numOfGoalies = Players.Where(p => p.Position == Position.Goalie).Count();
+                // Using LINQ query format
+                //var goalies = from p in Players
+                //              where (p.Position == Position.Goalie)
+                //              select p;
+                //int numOfGoalies = goalies.Count();
 
+                // Using LINQ method foramt
+                int numOfGoalies = Players.Where(p => p.Position == Position.Goalie).Count();
+                
                 return TotalPlayers >= MinPlayers && TotalPlayers <= MaxPlayers && numOfGoalies >= MinGoalies && numOfGoalies <= MaxGoalies;
             }
         }
