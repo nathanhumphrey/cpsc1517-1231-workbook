@@ -1,0 +1,61 @@
+﻿<h3>Current Date and Time</h3>
+
+<p>The raw datetime is: @now</p>
+<p>The current date is: @GetLocalDate()</p>
+<p>The current time is: @GetLocalTime()</p>
+
+@*
+    C# DateTime Formatting Patterns
+
+    ddd - 3 character day of week
+    dddd - day of week
+    MMM - 3 character month name
+    MMMM - month name
+    dd - day of month
+    yyyy - four digit year
+    h - hour in 12-hour format
+    hh - hour in 24-hour format
+    mm - two digit minutes
+    tt - am/pm indicator
+*@
+
+@code {
+	private DateTime now;
+
+	/// <summary>
+	/// This event occurs before the page gets rendered.
+	/// </summary>
+	protected override void OnInitialized()
+	{
+		now = DateTime.Parse("2023-10-02 08:43:00 pm");
+		base.OnInitialized();
+	}
+
+	/// <summary>
+	/// The async version executes after the sync version.
+	/// </summary>
+	/// <returns></returns>
+	protected override Task OnInitializedAsync()
+	{
+		now = DateTime.Now;
+		return base.OnInitializedAsync();
+	}
+
+	/// <summary>
+	/// Returns the current date
+	/// </summary>
+	/// <returns></returns>
+	private string GetLocalDate()
+	{
+		return now.ToString("MMMM dd, yyyy");
+	}
+
+	/// <summary>
+	/// Returns the current Time
+	/// </summary>
+	/// <returns></returns>
+	private string GetLocalTime()
+	{
+		return now.ToString("hh:mm tt");
+	}
+}

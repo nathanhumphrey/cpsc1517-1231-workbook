@@ -1,0 +1,15 @@
+﻿@page "/"
+
+@* Required since the CurrentDateTime component is not in the same directory *@
+@using BlazorSampleApp.Pages.Samples
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+@* Our components can be nested in other components or pages as tags *@
+<CurrentDateTime />
+
+<SurveyPrompt Title="How is Blazor working for you?" />

@@ -1,0 +1,73 @@
+﻿@page "/random-number"
+
+<h3>Max Random Number</h3>
+
+<p>This page will render a random number between 1 and a max value.</p>
+
+<p>@feedbackMessage</p>
+
+@*
+	You can use the @onclick directive attribute to assign event handlers
+	to elements. In the following example, two buttons are assigned
+	click handlers to perform a task based on a user's action (in this
+	case, clicking on the buttons). Note that only the method name is
+	used for the event value; we are not calling the method at this time,
+	only indicating the name of the method to call if/when the user
+	clicks on the element, the actual method will be called by the
+	underlying system).
+
+	You can bind a variable or property to an input element using the
+	@bind-value or @bind directive attribute. This creates a two-way
+	binding where updates made by the use to the value of the element
+	will be stored in the bound variable/property and updates to the
+	bound variable/property will autonmatically force the component
+	to render so that the updated value is displayed. No additional
+	code is required to enforce this behaviour.
+*@
+
+<fieldset>
+	@*
+	Class mb-3 is a Bootstrap class that will set the margin on the bottom to 16px
+	See: https://getbootstrap.com/docs/5.3/utilities/spacing/#notation
+	*@
+	<div class="mb-3">
+		<label for="maxNumber">Max Number Value</label>
+		<input type="text" id="maxNumber" name="maxNumber" @bind-value="@MaxNumber" />
+	</div>
+	<div class="mb-3">
+		@*
+		The btn and btn-outline-* classes are for formatting buttons
+		See: https://getbootstrap.com/docs/5.3/components/buttons/
+		*@
+		<button class="btn btn-outline-primary" @onclick="@GenerateRandomNumber">Geneate Number</button>
+	</div>
+	<div class="mb-3">
+		<button class="btn btn-outline-secondary" @onclick="@ClearMessage">Clear Output</button>
+	</div>
+</fieldset>
+
+@code {
+	// Can use properties within @code blocks
+	private int MaxNumber { get; set; }
+
+	private int randomNumber;
+
+	private string? feedbackMessage;
+
+	/// <summary>
+	/// Generates a randome number between 1 and the MaxNumber value
+	/// </summary>
+	private void GenerateRandomNumber()
+	{
+		randomNumber = Random.Shared.Next(1, MaxNumber + 1);
+		feedbackMessage = $"Your random number is {randomNumber}";
+	}
+
+	/// <summary>
+	/// Sets the feedbackMessage to null
+	/// </summary>
+	private void ClearMessage()
+	{
+		feedbackMessage = null;
+	}
+}
