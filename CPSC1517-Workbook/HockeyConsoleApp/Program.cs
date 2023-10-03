@@ -26,3 +26,10 @@ Console.WriteLine($"Date in future? {Utilities.IsInTheFuture(new DateTime(2023, 
 // Call to .ToString() is unnecessary, using the variable in this context will automatically call ToString()
 Console.WriteLine($"The player's name is {player2}, they are born {player2.DateOfBirth} and are {player2.Age} years old.");
 // Console.WriteLine($"The player's name is {player3}, they are born {player3.DateOfBirth} and are {player3.Age} years old.");
+
+List<int> nums = new List<int>() { 1, 2, 2, 3, 4, 5, 5, 8, 9, 9, 10};
+
+foreach (int num in nums.Where(n => n % 2 == 0))
+{
+    Console.WriteLine(num);
+}
