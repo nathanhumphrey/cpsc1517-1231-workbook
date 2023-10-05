@@ -12,6 +12,7 @@
 
         /// <summary>
         /// Hockey team roster
+        /// Initialized to a new List<HockeyPlayer>
         /// </summary>
         public List<HockeyPlayer> Players { get; private set; } = new List<HockeyPlayer>();
 
