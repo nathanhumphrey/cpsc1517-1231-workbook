@@ -1,0 +1,72 @@
+﻿@page "/calculator"
+
+<h3>Calculator</h3>
+
+<fieldset>
+	<div class="mb-3">
+		<label class="form-label">Num 1</label>
+		<input class="form-control" type="text" @bind="Num1" />
+	</div>
+	<div class="mb-3">
+		<label class="form-label">Num 2</label>
+		<input class="form-control" type="text" @bind="Num2" />
+	</div>
+	<div class="mb-3">
+		<button type="button" class="btn btn-warning" @onclick="@Add">Num1 + Num2</button>
+		<button type="button" class="btn btn-primary" @onclick="@Subtract">Num1 - Num2</button>
+		<button type="button" class="btn btn-danger" @onclick="@Multiply">Num1 * Num2</button>
+		<button type="button" class="btn btn-success" @onclick="@Divide">Num1 / Num2</button>
+	</div>
+</fieldset>
+
+@if (!string.IsNullOrWhiteSpace(Output))
+{
+	<div class="mb-3 fw-bold">
+		Calculation Output
+	</div>
+	@* Use of conditional/ternary operator to toggle output class *@
+	<div class="card-body alert @(IsError ? "alert-danger" : "alert-info")">
+		@Output
+	</div>
+}
+
+@code {
+	private bool IsError { get; set; } = false;
+	private string Output { get; set; } = "";
+	private int Num1 { get; set; }
+	private int Num2 { get; set; }
+
+	private void Add()
+	{
+		IsError = false;
+		Output = $"The sum is: {Num1 + Num2}";
+	}
+
+	private void Subtract()
+	{
+		IsError = false;
+		Output = $"The difference is: {Num1 - Num2}";
+	}
+
+	private void Multiply()
+	{
+		IsError = false;
+		Output = $"The product is: {Num1 * Num2}";
+	}
+
+	private void Divide()
+	{
+		IsError = false;
+
+		// Can't divide by zero, so defensive programming to the rescue
+		if (Num2 == 0)
+		{
+			IsError = true;
+			Output = "Num2 cannot be zero";
+		}
+		else
+		{
+			Output = $"The quotient is: {((double)Num1 / Num2):F2}";
+		}
+	}
+}
