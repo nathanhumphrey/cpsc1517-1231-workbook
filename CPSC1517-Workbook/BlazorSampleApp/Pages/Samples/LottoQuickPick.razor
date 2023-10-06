@@ -1,0 +1,80 @@
+﻿@page "/lotto-quick-pick"
+<h3>Lotto Quick Pick</h3>
+
+<p>This Blazor Component allows you to generate quick pick numbers for Lotto 6/49 or Lotto MAX.</p>
+
+@if (_quickPickNumbers.Count > 0)
+{
+	<p>Your quick pick numbers are:</p>
+	<table class="table table-striped text-center">
+		<thead>
+			<tr class="table-info">
+				@for (int num = 1; num <= _quickPickNumbers.Count; num += 1)
+				{
+					<th>Num @num</th>
+				}
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				@foreach (var num in _quickPickNumbers)
+				{
+					<td>@num</td>
+				}
+			</tr>
+		</tbody>
+	</table>
+}
+
+@*
+	A lambda function is used to set the lotto type inline
+	For 'checked' attributes, Blazor will only render boolean attributes
+	if the value is true (smart!).
+*@
+<fieldset>
+	<p>Select lotto type:</p>
+	<div class="form-check">
+		<input class="form-check-input" id="lotto649" name="lottoType" type="radio" value="649"
+			   checked="@(_lottoType == "649")"
+		@onclick="@(() => _lottoType = "649")" />
+		<label class="form-check-label" for="lotto649">Lotto 6/49</label>
+	</div>
+	<div class="form-check">
+		<input class="form-check-input" id="lottoMAX" name="lottoType" type="radio" value="MAX"
+			   checked="@(_lottoType == "MAX")"
+		@onclick="@(() => _lottoType = "MAX")" />
+		<label class="form-check-label" for="lottoMAX">Lotto MAX</label>
+	</div>
+	<div class="mt-3">
+		<button class="btn btn-primary" @onclick="@GenerateQuickPick">Generate Quick Pick</button>
+	</div>
+</fieldset>
+
+@code {
+	private string _lottoType = "MAX";
+	private List<int> _quickPickNumbers = new();
+
+	private void GenerateQuickPick()
+	{
+		// The max lotto number for LottoMAX is 50 whereas it is 49 for Lotto6/49
+		int maxLottoNumber = _lottoType == "MAX" ? 50 : 49;
+		// LottoMAX selects 7 numbers whereas Lotto6/49 selects 6 numbers
+		int lottoSelections = _lottoType == "MAX" ? 7 : 6;
+		
+		// Clear previous generated numbers
+		_quickPickNumbers.Clear();
+		
+		// Generate the random numbers
+		while (_quickPickNumbers.Count < lottoSelections)
+		{
+			int randomNumber = Random.Shared.Next(1, maxLottoNumber);
+			// Add the randomNumber only if it is unique
+			if (!_quickPickNumbers.Contains(randomNumber))
+			{
+				_quickPickNumbers.Add(randomNumber);
+			}
+		}
+		// Sort the numbers
+		_quickPickNumbers.Sort();
+	}
+}
