@@ -4,7 +4,12 @@
 
 <p>This page will render a random number between 1 and a max value.</p>
 
-<p>@feedbackMessage</p>
+@if (!string.IsNullOrWhiteSpace(FeedbackMessage))
+{
+	<div class="alert @(IsError ? "alert-danger": "alert-info")">
+		@FeedbackMessage
+	</div>
+}
 
 @*
 	You can use the @onclick directive attribute to assign event handlers
@@ -49,18 +54,27 @@
 @code {
 	// Can use properties within @code blocks
 	private int MaxNumber { get; set; }
-
-	private int randomNumber;
-
-	private string? feedbackMessage;
+	private bool IsError { get; set; }
+	private int RandomNumber { get; set; }
+	private string? FeedbackMessage { get; set; }
 
 	/// <summary>
 	/// Generates a randome number between 1 and the MaxNumber value
 	/// </summary>
 	private void GenerateRandomNumber()
 	{
-		randomNumber = Random.Shared.Next(1, MaxNumber + 1);
-		feedbackMessage = $"Your random number is {randomNumber}";
+		if (MaxNumber >= 1)
+		{
+			IsError = false;
+			RandomNumber = Random.Shared.Next(1, MaxNumber + 1);
+			FeedbackMessage = $"Your random number is {RandomNumber}";
+		}
+		else
+		{
+			IsError = true;
+			FeedbackMessage = "Max number must be greater than zero";
+		}
+
 	}
 
 	/// <summary>
@@ -68,6 +82,7 @@
 	/// </summary>
 	private void ClearMessage()
 	{
-		feedbackMessage = null;
+		IsError = false;
+		FeedbackMessage = null;
 	}
 }
