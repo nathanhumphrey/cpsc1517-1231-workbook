@@ -1,4 +1,5 @@
-﻿using Utils;
+﻿using System.Text.RegularExpressions;
+using Utils;
 
 namespace Hockey.Data
 {
@@ -298,7 +299,7 @@ namespace Hockey.Data
         /// Represents the player's shot hand
         /// </summary>
         public Shot Shot { get; set; }
-        
+
         /// <summary>
         /// Represents the player's jersey number
         /// </summary>
@@ -341,7 +342,34 @@ namespace Hockey.Data
         /// <returns>A string including the player's first and last name</returns>
         public override string ToString()
         {
-            return $"{FirstName} {LastName}";
+            return $"{FirstName},{LastName},{JerseyNumber},{Position},{Shot},{HeightInInches},{WeightInPounds},{DateOfBirth.ToString("MMM-dd-yyyy")},{BirthPlace.Replace(", ", "-")}";
+        }
+
+        /// <summary>
+        /// Parses a CSV line into a new hockey player
+        /// </summary>
+        /// <param name="line">The CSV line to parse</param>
+        /// <returns>A new hockey player</returns>
+        /// <exception cref="InvalidDataException">If the number of fields in the line does not match the 
+        /// number required for a new hockey player</exception>
+        public static HockeyPlayer Parse(string line)
+        {
+            HockeyPlayer player;
+
+            // Split on commas that are not within double-quoted strings
+            string[] fields = line.Split(',');
+
+            // Validate
+            if (fields.Length != 9)
+            {
+                throw new InvalidDataException("Incorrect number of fieds.");
+            }
+
+            player = new HockeyPlayer(fields[0], fields[1], fields[2], DateOnly.ParseExact(fields[3], "d"),
+                int.Parse(fields[4]), int.Parse(fields[5]), int.Parse(fields[6]), 
+                Enum.Parse<Position>(fields[7]), Enum.Parse<Shot>(fields[8]));
+
+            return player;
         }
     }
 }

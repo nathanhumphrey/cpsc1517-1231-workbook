@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Hockey.Data;
 using System.Collections;
+using System.Globalization;
 
 namespace Hockey.Test
 {
@@ -18,18 +19,18 @@ namespace Hockey.Test
         const Shot PlayerShot = Shot.Left;
         // The following relies on our being correct here - not writing a test for the test expected value
         readonly int Age = (DateOnly.FromDateTime(DateTime.Now).DayNumber - DateOfBirth.DayNumber) / 365;
-        const string ToStringValue = $"{FirstName} {LastName}";
+        string ToStringValue = $"{FirstName},{LastName},{JerseyNumber},{PlayerPosition},{PlayerShot},{HeightInInches},{WeightInPounds},{DateOfBirth:MMM-dd-yyyy},{BirthPlace.Replace(", ", "-")}";
 
-        // Can quickly run a test to check our method for AGE above
-        //[Fact]
-        //public void AGE_Is_Correct()
-        //{
-        //    AGE.Should().Be(29);
-        //}
+		// Can quickly run a test to check our method for AGE above
+		//[Fact]
+		//public void AGE_Is_Correct()
+		//{
+		//    AGE.Should().Be(29);
+		//}
 
-        public HockeyPlayer CreateTestHockeyPlayer()
+		public HockeyPlayer CreateTestHockeyPlayer()
         {
-            return new HockeyPlayer(FirstName, LastName, BirthPlace, DateOfBirth, HeightInInches, WeightInPounds, JerseyNumber, PlayerPosition, PlayerShot);
+            return new HockeyPlayer(FirstName, LastName, BirthPlace, DateOfBirth, WeightInPounds, HeightInInches, JerseyNumber, PlayerPosition, PlayerShot);
         }
 
         // Test data generateor for class data (see line 85 below)
@@ -38,12 +39,34 @@ namespace Hockey.Test
             private readonly List<object[]> _data = new List<object[]>
             {
                 // First Name tests
-                new object[]{"", LastName, BirthPlace, DateOfBirth, HeightInInches, WeightInPounds, JerseyNumber, PlayerPosition, PlayerShot, "First name cannot be null or empty." },
-                new object[]{" ", LastName, BirthPlace, DateOfBirth, HeightInInches, WeightInPounds, JerseyNumber, PlayerPosition, PlayerShot, "First name cannot be null or empty." },
-                new object[]{null, LastName, BirthPlace, DateOfBirth, HeightInInches, WeightInPounds, JerseyNumber, PlayerPosition, PlayerShot, "First name cannot be null or empty." },
+                new object[]{"", LastName, BirthPlace, DateOfBirth, WeightInPounds, HeightInInches,JerseyNumber, PlayerPosition, PlayerShot, "First name cannot be null or empty." },
+                new object[]{" ", LastName, BirthPlace, DateOfBirth, WeightInPounds, HeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "First name cannot be null or empty." },
+                new object[]{null, LastName, BirthPlace, DateOfBirth, WeightInPounds, HeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "First name cannot be null or empty." },
 
-                // TODO: complete remaining private set tests
-            };
+                // Last Name tests
+                new object[]{FirstName, "", BirthPlace, DateOfBirth, WeightInPounds, HeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "Last name cannot be null or empty." },
+				new object[]{FirstName, " ", BirthPlace, DateOfBirth, WeightInPounds, HeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "Last name cannot be null or empty." },
+				new object[]{FirstName, null, BirthPlace, DateOfBirth, WeightInPounds, HeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "Last name cannot be null or empty." },
+
+                // Birth Place tests
+                new object[]{FirstName, LastName, "", DateOfBirth, WeightInPounds, HeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "Birth place cannot be null or empty." },
+				new object[]{FirstName, LastName, " ", DateOfBirth, WeightInPounds, HeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "Birth place cannot be null or empty." },
+				new object[]{FirstName, LastName, null, DateOfBirth, WeightInPounds, HeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "Birth place cannot be null or empty." },
+
+                // Date of Birth test
+                new object[]{FirstName, LastName, BirthPlace, DateOnly.FromDateTime(DateTime.Now.AddDays(1)), WeightInPounds, HeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "Date of birth cannot be in the future." },
+
+                // Height test
+                new object[]{FirstName, LastName, BirthPlace, DateOfBirth, WeightInPounds , - 1, JerseyNumber, PlayerPosition, PlayerShot, "Height must be positive." },
+
+                // Weight test
+                new object[]{FirstName, LastName, BirthPlace, DateOfBirth, -1, HeightInInches, JerseyNumber, PlayerPosition, PlayerShot, "Weight must be positive." },
+
+                // Jersey number tests
+                new object[]{FirstName, LastName, BirthPlace, DateOfBirth, HeightInInches, WeightInPounds, 0, PlayerPosition, PlayerShot, "Jersey number must be between 1 and 98." },
+				new object[]{FirstName, LastName, BirthPlace, DateOfBirth, HeightInInches, WeightInPounds, 99, PlayerPosition, PlayerShot, "Jersey number must be between 1 and 98." },
+
+			};
 
             public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
 
@@ -158,5 +181,28 @@ namespace Hockey.Test
             // Assert
             actual.Should().Be(ToStringValue);
         }
-    }
+
+        [Fact]
+        public void HockeyPlayer_Parse_ParsesCorrectly()
+        {
+            HockeyPlayer actual;
+            string line = $"{FirstName},{LastName},\"{BirthPlace}\",{DateOfBirth.ToString("d")},{HeightInInches},{WeightInPounds},{JerseyNumber},{PlayerPosition},{PlayerShot}";
+
+            actual = HockeyPlayer.Parse(line);
+
+            actual.Should().BeOfType<HockeyPlayer>();
+
+        }
+
+		[Fact]
+		public void HockeyPlayer_Parse_ThrowsForIncorrectNumberOfFields()
+		{
+			string line = $"{FirstName}";
+
+			Action act = () => HockeyPlayer.Parse(line);
+
+            act.Should().Throw<InvalidDataException>().WithMessage("Incorrect number of fieds.");
+
+		}
+	}
 }
