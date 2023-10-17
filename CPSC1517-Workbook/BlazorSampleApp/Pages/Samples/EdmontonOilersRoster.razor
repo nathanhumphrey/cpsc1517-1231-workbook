@@ -1,0 +1,86 @@
+﻿@page "/edmonton-oilers"
+@using Hockey.Data
+
+<h3>Edmonton Oilers Roster</h3>
+
+<p>
+    This Blazor Component displays a list of players on the Edmonton Oilers team for the 2023-24 season
+    using data from a CSV file.
+</p>
+
+@if (FeedbackMessage != null)
+{
+    <div class="alert alert-info">
+        @FeedbackMessage
+    </div>
+}
+
+@if (Players.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Jersey</th>
+                <th>Position</th>
+                <th>Shot</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Birth Place</th>
+                <th>DOB</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var currentPlayer in Players)
+            {
+                <tr>
+                    <td>@currentPlayer.FirstName @currentPlayer.LastName</td>
+                    <td>@currentPlayer.JerseyNumber</td>
+                    <td>@currentPlayer.Position</td>
+                    <td>@currentPlayer.Shot</td>
+                    <td>@currentPlayer.HeightInInches</td>
+                    <td>@currentPlayer.WeightInPounds</td>
+                    <td>@currentPlayer.BirthPlace</td>
+                    <td>@currentPlayer.DateOfBirth.ToString("d")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private string? FeedbackMessage { get; set; }
+    private List<HockeyPlayer> Players { get; set; } = new();
+
+    [Inject]
+    public IWebHostEnvironment WebHostEnvironment { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        string csvFilePath = $@"{WebHostEnvironment.ContentRootPath}\Data\players.csv";
+        using (StreamReader reader = new StreamReader(csvFilePath))
+        {
+            // Skip the first line as it contains column headings only
+            reader.ReadLine();
+            // Read one line at a time until the end of file (null) is read.
+            string? currentLine;
+            while ((currentLine = reader.ReadLine()) != null)
+            {
+                try
+                {
+                    HockeyPlayer? currentPlayer = null;
+                    if ((currentPlayer = HockeyPlayer.Parse(currentLine)) != null)
+                    {
+                        Players.Add(currentPlayer);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    FeedbackMessage = ex.Message;
+                }
+            }
+
+            reader.Close();
+        }
+    }
+}
