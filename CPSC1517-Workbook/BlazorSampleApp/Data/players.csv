@@ -1,22 +1,22 @@
 ﻿FirstName,LastName,JerseyNumber,Position,Shot,Height,Weight,DOB,BirthPlace
-Connor, Brown,28,RightWing,Right,72,184,Jan-14-1994,Toronto-ON-CAN
-Leon, Draisaitl,29,Center,Left,74,209,Oct-27-1995,Cologne-DEU
-Adam, Erne,21,LeftWing,Left,73,215,Apr-20-1995,New Haven-CT-USA
-Warren, Foegele,37,LeftWing,Left,74,204,Apr-01-1996,Markham-ON-CAN
-Dylan, Holloway,55,LeftWing,Left,73,206,Sep-23-2001,Calgary-AB-CAN
-Zach, Hyman,18,LeftWing,Right,73,206,Jun-09-1992,Toronto-ON-CAN
-Mattias, Janmark,13,Center,Left,74,205,Dec-08-1992,Danderyd-SWE
-Evander, Kane,91,LeftWing,Left,74,218,Aug-02-1991,Vancouver-BC-CAN
-Connor, McDavid,97,Center,Left,73,194,Jan-13-1997,Richmond Hill-ON-CAN
-Ryan, McLeod,71,Center,Left,75,188,Sep-21-1999,Mississauga-ON-CAN
-Ryan, Nugent-Hopkins,93,Center,Left,73,192,Apr-12-1993,Burnaby-BC-CAN
-Derek, Ryan,10,Center,Right,70,185,Dec-29-1986,Spokane-WA-USA
-Evan, Bouchard,2,Defense,Right,75,192,Oct-20-1999,Oakville-ON-CAN
-Philip, Broberg,86,Defense,Left,76,212,Jun-25-2001,Orebro-SWE
-Cody, Ceci,5,Defense,Right,75,210,Dec-21-1993,Ottawa-ON-CAN
-Vincent, Desharnais,73,Defense,Right,79,226,May-29-1996,Laval-QC-CAN
-Mattias, Ekholm,14,Defense,Left,77,225,May-24-1990,Borlange-SWE
-Brett, Kulak,27,Defense,Left,74,192,Jan-06-1994,Edmonton-AB-CAN
-Darnell, Nurse,25,Defense,Left,76,215,Feb-04-1995,Hamilton-ON-CAN
-Jack, Campbell,36,Goalie,Left,75,200,Jan-09-1992,Port Huron-MI-USA
-Stuart, Skinner,74,Goalie,Left,76,230,Nov-01-1998,Edmonton-AB-CAN
+Connor,Brown,28,RightWing,Right,72,184,Jan-14-1994,Toronto-ON-CAN
+Leon,Draisaitl,29,Center,Left,74,209,Oct-27-1995,Cologne-DEU
+Adam,Erne,21,LeftWing,Left,73,215,Apr-20-1995,New Haven-CT-USA
+Warren,Foegele,37,LeftWing,Left,74,204,Apr-01-1996,Markham-ON-CAN
+Dylan,Holloway,55,LeftWing,Left,73,206,Sep-23-2001,Calgary-AB-CAN
+Zach,Hyman,18,LeftWing,Right,73,206,Jun-09-1992,Toronto-ON-CAN
+Mattias,Janmark,13,Center,Left,74,205,Dec-08-1992,Danderyd-SWE
+Evander,Kane,91,LeftWing,Left,74,218,Aug-02-1991,Vancouver-BC-CAN
+Connor,McDavid,97,Center,Left,73,194,Jan-13-1997,Richmond Hill-ON-CAN
+Ryan,McLeod,71,Center,Left,75,188,Sep-21-1999,Mississauga-ON-CAN
+Ryan,Nugent-Hopkins,93,Center,Left,73,192,Apr-12-1993,Burnaby-BC-CAN
+Derek,Ryan,10,Center,Right,70,185,Dec-29-1986,Spokane-WA-USA
+Evan,Bouchard,2,Defense,Right,75,192,Oct-20-1999,Oakville-ON-CAN
+Philip,Broberg,86,Defense,Left,76,212,Jun-25-2001,Orebro-SWE
+Cody,Ceci,5,Defense,Right,75,210,Dec-21-1993,Ottawa-ON-CAN
+Vincent,Desharnais,73,Defense,Right,79,226,May-29-1996,Laval-QC-CAN
+Mattias,Ekholm,14,Defense,Left,77,225,May-24-1990,Borlange-SWE
+Brett,Kulak,27,Defense,Left,74,192,Jan-06-1994,Edmonton-AB-CAN
+Darnell,Nurse,25,Defense,Left,76,215,Feb-04-1995,Hamilton-ON-CAN
+Jack,Campbell,36,Goalie,Left,75,200,Jan-09-1992,Port Huron-MI-USA
+Stuart,Skinner,74,Goalie,Left,76,230,Nov-01-1998,Edmonton-AB-CAN

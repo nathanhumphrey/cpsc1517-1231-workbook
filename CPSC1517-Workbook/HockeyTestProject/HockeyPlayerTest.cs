@@ -19,7 +19,7 @@ namespace Hockey.Test
         const Shot PlayerShot = Shot.Left;
         // The following relies on our being correct here - not writing a test for the test expected value
         readonly int Age = (DateOnly.FromDateTime(DateTime.Now).DayNumber - DateOfBirth.DayNumber) / 365;
-        string ToStringValue = $"{FirstName},{LastName},{JerseyNumber},{PlayerPosition},{PlayerShot},{HeightInInches},{WeightInPounds},{DateOfBirth.ToString("MMM-dd-yyyy", CultureInfo.InvariantCulture)},{BirthPlace.Replace(", ", "-")}";
+        string ToStringValue = $"{FirstName},{LastName},{JerseyNumber},{PlayerPosition},{PlayerShot},{HeightInInches},{WeightInPounds},Jan-14-1994,{BirthPlace.Replace(", ", "-")}";
 
         // Can quickly run a test to check our method for AGE above
         //[Fact]
@@ -186,7 +186,7 @@ namespace Hockey.Test
         public void HockeyPlayer_Parse_ParsesCorrectly()
         {
             HockeyPlayer actual;
-            string line = $"{FirstName},{LastName},{JerseyNumber},{PlayerPosition},{PlayerShot},{HeightInInches},{WeightInPounds},{DateOfBirth.ToString("MMM-dd-yyyy", CultureInfo.InvariantCulture)},{BirthPlace.Replace(", ", "-")}";
+            string line = $"{FirstName},{LastName},{JerseyNumber},{PlayerPosition},{PlayerShot},{HeightInInches},{WeightInPounds},Jan-14-1994,{BirthPlace.Replace(", ", "-")}";
 
             actual = HockeyPlayer.Parse(line);
 
