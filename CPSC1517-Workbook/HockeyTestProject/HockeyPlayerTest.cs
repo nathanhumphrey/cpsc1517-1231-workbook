@@ -2,6 +2,7 @@ using FluentAssertions;
 using Hockey.Data;
 using System.Collections;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace Hockey.Test
 {
@@ -194,15 +195,37 @@ namespace Hockey.Test
 
         }
 
-        [Fact]
-        public void HockeyPlayer_Parse_ThrowsForIncorrectNumberOfFields()
-        {
-            string line = $"{FirstName}";
+        [Theory]
+        [InlineData(null, "Line cannot be null or empty.")]
+        [InlineData("", "Line cannot be null or empty.")]
+        [InlineData(" ", "Line cannot be null or empty.")]
 
+		public void HockeyPlayer_Parse_ThrowsForNullEmptyOrWhiteSpaceLine(string line, string errMsg)
+        {
             Action act = () => HockeyPlayer.Parse(line);
 
-            act.Should().Throw<InvalidDataException>().WithMessage("Incorrect number of fieds.");
+            act.Should().Throw<ArgumentNullException>().WithMessage(errMsg);
 
         }
-    }
+
+        [Theory]
+		[InlineData("one", "Incorrect number of fieds.")]
+		public void HockeyPlayer_Parse_ThrowsForInvalidNumberOfFields(string line, string errMsg)
+		{
+			Action act = () => HockeyPlayer.Parse(line);
+
+			act.Should().Throw<InvalidDataException>().WithMessage(errMsg);
+
+		}
+
+        [Theory]
+		[InlineData("one,two,three,four,five,six,seven,eight,nine", "Error parsing line")]
+		public void HockeyPlayer_Parse_ThrowsForFormatError(string line, string errMsg)
+		{
+			Action act = () => HockeyPlayer.Parse(line);
+
+			act.Should().Throw<FormatException>().WithMessage($"*{errMsg}*");
+
+		}
+	}
 }
