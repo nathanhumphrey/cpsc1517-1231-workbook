@@ -227,5 +227,17 @@ namespace Hockey.Test
 			act.Should().Throw<FormatException>().WithMessage($"*{errMsg}*");
 
 		}
+
+        [Fact]
+        public void HockeyPlayer_TryParse_ParsesCorrectly()
+        {
+            HockeyPlayer? actual = null;
+            bool result;
+
+            result = HockeyPlayer.TryParse(ToStringValue, out actual);
+
+            result.Should().BeTrue();
+            actual.Should().NotBeNull();
+        }
 	}
 }
