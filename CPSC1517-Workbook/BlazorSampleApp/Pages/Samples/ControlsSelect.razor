@@ -1,0 +1,47 @@
+﻿@using BlazorSampleApp.Data
+<h3>Select Dropdown Demo</h3>
+
+<div class="mb-3">
+	<select class="form-select mb-3 @(IsError? "is-invalid" : "")" aria-label="Select example" @bind="SelectValue" required>
+		<option selected disabled>Open this select dropdown</option>
+		@foreach (var option in Options)
+		{
+			<option value="@option.Value">@option.DisplayText</option>
+		}
+	</select>
+	<button class="btn btn-primary" type="submit" @onclick="HandleSubmit">
+		Select Submit
+	</button>
+</div>
+
+@code {
+	private string? SelectValue { get; set; }
+	private bool IsError = false;
+	private List<SelectOption> Options { get; set; } = new();
+
+	[Parameter]
+	public EventCallback<string> OnDataSent { get; set; }
+
+	protected override void OnInitialized()
+	{
+		Options = new List<SelectOption>();
+		Options.Add(new SelectOption() { Value = "1", DisplayText = "One" });
+		Options.Add(new SelectOption() { Value = "2", DisplayText = "Two" });
+		Options.Add(new SelectOption() { Value = "3", DisplayText = "Three" });
+
+		base.OnInitialized();
+	}
+
+	public void HandleSubmit()
+	{
+		if (SelectValue != null && !SelectValue.Contains("Open this select dropdown"))
+		{
+			IsError = false;
+			OnDataSent.InvokeAsync(SelectValue ?? "");
+		}
+		else
+		{
+			IsError = true;
+		}
+	}
+}

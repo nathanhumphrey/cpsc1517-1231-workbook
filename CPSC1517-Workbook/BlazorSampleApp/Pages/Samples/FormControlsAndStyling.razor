@@ -1,0 +1,28 @@
+﻿@page "/form-controls"
+
+<!-- Add a custom css file to this page ONLY-->
+<HeadContent>
+    <link href="/css/styles.css" rel="stylesheet" />
+</HeadContent>
+
+<h3>Form Controls and Styling</h3>
+
+<ControlsCheckbox OnDataSent="HandleDataReceived" />
+<ControlsSelect OnDataSent="HandleDataReceived" />
+
+@if (ReceivedData != null)
+{
+    <div class="alert alert-info">
+        @ReceivedData
+    </div>
+}
+
+@code {
+
+    private string? ReceivedData { get; set; }
+
+    private void HandleDataReceived(string data)
+    {
+        ReceivedData = data;
+    }
+}

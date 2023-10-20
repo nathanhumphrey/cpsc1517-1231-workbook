@@ -1,0 +1,30 @@
+﻿<h3>Checkbox Demo</h3>
+
+<div class="mb-3">
+	<div class="form-check mb-3">
+		<input class="form-check-input" type="checkbox" id="example-checkbox" @bind="CheckboxValue">
+		<label class="form-check-label" for="example-checkbox">
+			Do you like checkboxes?
+		</label>
+	</div>
+	<button class="btn btn-primary" type="submit" @onclick="HandleSubmit">
+		Checkbox Submit
+	</button>
+</div>
+
+@code {
+
+	private bool CheckboxValue { get; set; }
+
+	/// <summary>
+	/// A function to call and pass data "up" to the parent component
+	/// </summary>
+	[Parameter]
+	public EventCallback<string> OnDataSent { get; set; }
+
+	public void HandleSubmit()
+	{
+		OnDataSent.InvokeAsync(CheckboxValue ? "Checked" : "Not Checked");
+	}
+
+}
