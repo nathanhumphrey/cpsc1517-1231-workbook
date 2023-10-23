@@ -19,6 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectClassLibraryTest", "O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSampleApp", "BlazorSampleApp\BlazorSampleApp.csproj", "{242D82DB-8EB8-40FC-AAB7-43FBE93BB29F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WestWindWebApp", "WestWindWebApp\WestWindWebApp.csproj", "{C7D653DD-5237-4B6B-8BDF-511D23DBA172}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WestWindSystem", "WestWindSystem\WestWindSystem.csproj", "{67C12F2D-80B5-4DBA-BC6C-0D2D5F2909B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{242D82DB-8EB8-40FC-AAB7-43FBE93BB29F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{242D82DB-8EB8-40FC-AAB7-43FBE93BB29F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{242D82DB-8EB8-40FC-AAB7-43FBE93BB29F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7D653DD-5237-4B6B-8BDF-511D23DBA172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7D653DD-5237-4B6B-8BDF-511D23DBA172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7D653DD-5237-4B6B-8BDF-511D23DBA172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7D653DD-5237-4B6B-8BDF-511D23DBA172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67C12F2D-80B5-4DBA-BC6C-0D2D5F2909B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67C12F2D-80B5-4DBA-BC6C-0D2D5F2909B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67C12F2D-80B5-4DBA-BC6C-0D2D5F2909B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67C12F2D-80B5-4DBA-BC6C-0D2D5F2909B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
