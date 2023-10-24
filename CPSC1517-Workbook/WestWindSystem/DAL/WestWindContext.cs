@@ -7,13 +7,15 @@ namespace WestWindSystem.DAL;
 
 public partial class WestWindContext : DbContext
 {
+    // Not necessary for the Blazor server application, but useful 
+    //   for quick testing the context (e.g. in a console application)
+
     /// <summary>
-    /// Default constructor. Not necessary for this application, but useful 
-    /// for quick testing the context (e.g. in a console application).
+    /// Default constructor.
     /// </summary>
-    public WestWindContext()
-    {
-    }
+    //public WestWindContext()
+    //{
+    //}
 
 	/// <summary>
 	/// Provides a constructor that can be used by ASP.NET Core applications to 
@@ -72,6 +74,9 @@ public partial class WestWindContext : DbContext
 
     public virtual DbSet<Territory> Territories { get; set; }
 
+    // The following is unnecessary for configuration in the Blazor server
+    //   application. Uncomment if you'd like to test in a Console app.
+
     /// <summary>
     /// This overridden method will aways be called a when a new context object
     /// is created. The default from the scaffolding process will be used to pass
@@ -80,9 +85,9 @@ public partial class WestWindContext : DbContext
     /// this method does not need to be overidden in this way.
     /// </summary>
     /// <param name="optionsBuilder"></param>
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.;Database=WestWind;TrustServerCertificate=True;Trusted_Connection=true;MultipleActiveResultSets=true");
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+    //   => optionsBuilder.UseSqlServer("Server=.;Database=WestWind;TrustServerCertificate=True;Trusted_Connection=true;MultipleActiveResultSets=true");
 
     /// <summary>
     /// This overidden method is used to further configure the model for the context.

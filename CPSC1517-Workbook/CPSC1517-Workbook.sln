@@ -19,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectClassLibraryTest", "O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSampleApp", "BlazorSampleApp\BlazorSampleApp.csproj", "{242D82DB-8EB8-40FC-AAB7-43FBE93BB29F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WestWindWebApp", "WestWindWebApp\WestWindWebApp.csproj", "{C7D653DD-5237-4B6B-8BDF-511D23DBA172}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WestWindWebApp", "WestWindWebApp\WestWindWebApp.csproj", "{C7D653DD-5237-4B6B-8BDF-511D23DBA172}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WestWindSystem", "WestWindSystem\WestWindSystem.csproj", "{67C12F2D-80B5-4DBA-BC6C-0D2D5F2909B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WestWindSystem", "WestWindSystem\WestWindSystem.csproj", "{67C12F2D-80B5-4DBA-BC6C-0D2D5F2909B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

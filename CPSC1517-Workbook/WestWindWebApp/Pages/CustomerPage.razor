@@ -1,0 +1,41 @@
+﻿@page "/customers/{CustomerId}"
+@using WestWindSystem.BLL;
+@using WestWindSystem.Entities;
+
+<h3>CustomerPage</h3>
+
+@if (CurrentCustomer != null)
+{
+	<div>
+		<p>@CurrentCustomer.ContactName</p>
+	</div>
+}
+else
+{
+	<div class="alert alert-info">
+		<p>No customer found @(string.IsNullOrWhiteSpace(CustomerId) ? "" : $"with id = {CustomerId}" )</p>
+	</div>
+}
+
+@code {
+	[Parameter]
+	public string? CustomerId { get; set; }
+
+	public Customer? CurrentCustomer { get; set; }
+
+	// The [Inject] attribute marks a property as being injected by the 
+	// appliction service provider, which has been updated in the 
+	// Program.cs file.
+	[Inject]
+	CustomerServices? CustomerServices { get; set; }
+
+	protected override void OnInitialized()
+	{
+		if (CustomerId != null && CustomerServices != null)
+		{
+			CurrentCustomer = CustomerServices.GetCustomerById(CustomerId);
+		}
+
+		base.OnInitialized();
+	}
+}
