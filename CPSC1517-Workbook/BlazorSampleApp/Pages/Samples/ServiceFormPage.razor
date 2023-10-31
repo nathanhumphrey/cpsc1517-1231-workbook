@@ -33,7 +33,7 @@
 <fieldset class="form-group card p-3 mb-3">
 	<legend>Service Information</legend>
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="flexRadioDefault" id="internet"
+		<input class="form-check-input" type="radio" name="service-type" id="internet"
 			   checked="@(ServiceType == "INTERNET")"
 		@onclick="@(() => ServiceType = "INTERNET")">
 		<label class="form-check-label" for="internet">
@@ -41,7 +41,7 @@
 		</label>
 	</div>
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="flexRadioDefault" id="tv"
+		<input class="form-check-input" type="radio" name="service-type" id="tv"
 			   checked="@(ServiceType == "TV")"
 		@onclick="@(() => ServiceType = "TV")">
 		<label class="form-check-label" for="tv">
@@ -52,7 +52,7 @@
 		<input class="form-check-input" type="radio" name="internet-tv" id="internet-tv2"
 			   checked="@(ServiceType == "INTERNET_TV")"
 		@onclick="@(() => ServiceType = "INTERNET_TV")">
-		<label class="form-check-label" for="flexRadioDefault2">
+		<label class="form-check-label" for="service-type2">
 			Internet and Tv
 		</label>
 	</div>
@@ -79,7 +79,7 @@
 	<button class="btn btn-primary" @onclick="HandleSubmit">Submit Request</button>
 </div>
 
-@if (ErrorList.Count == 0 && Success)
+@if (Success)
 {
 	<div class="mt-3 alert alert-info">
 		<p>Request successfully submitted</p>
@@ -106,6 +106,8 @@
 
 	public void HandleSubmit()
 	{
+		// Guilty until proven innocent
+		Success = false;
 		// Reset the errors
 		ErrorList.Clear();
 
@@ -145,13 +147,5 @@
 			ServiceRequest = "";
 		}
 
-	}
-
-	protected override void OnInitialized()
-	{
-		// Perform any required initialization
-		ServiceType = "INTERNET";
-
-		base.OnInitialized();
 	}
 }
