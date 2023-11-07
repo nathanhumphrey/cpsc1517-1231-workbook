@@ -1,4 +1,8 @@
-﻿@* Multiple urls supported *@
+﻿@*
+	Multiple urls supported
+	/category-products/{CategoryId} - supports direct lookup of category products
+	/category-products - supports default lookup of category products
+*@
 @page "/category-products/{CategoryId}"
 @page "/category-products"
 
@@ -69,7 +73,6 @@
 	// Required component properties
 	public List<Category>? Categories { get; set; } = null;
 	public List<Product>? Products { get; set; } = null;
-	public Category? SelectedCategory { get; set; } = null;
 
 	// Define as a parameter so we can read it from the address URL, if present
 	[Parameter]
