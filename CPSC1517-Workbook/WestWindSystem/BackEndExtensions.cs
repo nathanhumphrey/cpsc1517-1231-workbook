@@ -42,6 +42,28 @@ namespace WestWindSystem
                 // performed from within the assembly, which this class (BackEndExtensions) is.
                 return new CustomerServices(context!);
             });
-        }
+
+			services.AddTransient<CategoryServices>((serviceProvider) =>
+			{
+				var context = serviceProvider.GetService<WestWindContext>();
+
+				// Create an instance of the service class (CustomerServices)
+				// supplying the context reference to the service class - this is where we
+				// pass in the required context to the internal constructor (must be
+				// performed from within the assembly, which this class (BackEndExtensions) is.
+				return new CategoryServices(context!);
+			});
+
+			services.AddTransient<ProductServices>((serviceProvider) =>
+			{
+				var context = serviceProvider.GetService<WestWindContext>();
+
+				// Create an instance of the service class (CustomerServices)
+				// supplying the context reference to the service class - this is where we
+				// pass in the required context to the internal constructor (must be
+				// performed from within the assembly, which this class (BackEndExtensions) is.
+				return new ProductServices(context!);
+			});
+		}
     }
 }

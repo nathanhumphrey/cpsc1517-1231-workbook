@@ -1,0 +1,100 @@
+﻿@* Multiple urls supported *@
+@page "/category-products/{CategoryId}"
+@page "/category-products"
+
+@using WestWindSystem.BLL
+@using WestWindSystem.Entities;
+
+<h3>Category Products</h3>
+
+@* Display the available categories *@
+<fieldset class="mb-3">
+	<legend>Category Selection</legend>
+	<div class="row row-cols-lg-auto g-3 align-items-center">
+		<div class="col-12">
+			<label class="visually-hidden" for="category">Category:</label>
+			<select class="form-select" id="category" @bind="CategoryId">
+				<option disabled selected>Select a category</option>
+				@if (Categories != null)
+				{
+					foreach (var cat in Categories)
+					{
+						<option value="@cat.CategoryId">@cat.Description</option>
+					}
+				}
+			</select>
+		</div>
+		<div class="col-12">
+			<button class="btn btn-primary" @onclick="HandleCategorySelected">Get Products</button>
+		</div>
+	</div>
+</fieldset>
+
+@if (Products != null)
+{
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Product Id</th>
+				<th>Name</th>
+				<th>Discontinued</th>
+				<th>Unit Price</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var p in Products)
+			{
+				<tr>
+					<td>@p.ProductId</td>
+					<td>@p.ProductName</td>
+					<td>@p.Discontinued</td>
+					<td class="text-end">@($"{p.UnitPrice:C}")</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+	// Need the BLL services
+	[Inject]
+	CategoryServices CategoryServices { get; set; }
+	[Inject]
+	ProductServices ProductServices { get; set; }
+
+	// Need navigation manager to update the address URL
+	[Inject]
+	NavigationManager NavigationManager { get; set; }
+
+	// Required component properties
+	public List<Category>? Categories { get; set; } = null;
+	public List<Product>? Products { get; set; } = null;
+	public Category? SelectedCategory { get; set; } = null;
+
+	// Define as a parameter so we can read it from the address URL, if present
+	[Parameter]
+	public string? CategoryId { get; set; } = null;
+
+	protected override void OnInitialized()
+	{
+		Categories = CategoryServices.GetAllCategories();
+
+		// Check for category id in the URL
+		if (CategoryId != null)
+		{
+			Products = ProductServices.GetProductsByCategoryId(int.Parse(CategoryId));
+		}
+
+		base.OnInitialized();
+	}
+
+	// Load the products for the selected category and update the address URL
+	private void HandleCategorySelected()
+	{
+		if (CategoryId != null)
+		{
+			Products = ProductServices.GetProductsByCategoryId(int.Parse(CategoryId));
+			NavigationManager.NavigateTo($"/category-products/{CategoryId}");
+		}
+	}
+}

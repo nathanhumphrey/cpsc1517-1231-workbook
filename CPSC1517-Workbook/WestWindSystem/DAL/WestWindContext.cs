@@ -5,7 +5,7 @@ using WestWindSystem.Entities;
 
 namespace WestWindSystem.DAL;
 
-public partial class WestWindContext : DbContext
+internal partial class WestWindContext : DbContext
 {
     // Not necessary for the Blazor server application, but useful 
     //   for quick testing the context (e.g. in a console application)
