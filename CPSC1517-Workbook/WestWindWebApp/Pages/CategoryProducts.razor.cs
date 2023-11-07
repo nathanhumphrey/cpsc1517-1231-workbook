@@ -19,21 +19,21 @@ namespace WestWindWebApp.Pages
 		NavigationManager NavigationManager { get; set; }
 
 		// Required component properties
-		public List<Category>? Categories { get; set; } = null;
-		public List<Product>? Products { get; set; } = null;
+		public List<Category>? Categories { get; set; }
+		public List<Product>? Products { get; set; }
 
 		// Define as a parameter so we can read it from the address URL, if present
 		[Parameter]
-		public string? CategoryId { get; set; } = null;
+		public int CategoryId { get; set; }
 
 		protected override void OnInitialized()
 		{
 			Categories = CategoryServices.GetAllCategories();
 
 			// Check for category id in the URL
-			if (CategoryId != null)
+			if (CategoryId != 0)
 			{
-				Products = ProductServices.GetProductsByCategoryId(int.Parse(CategoryId));
+				Products = ProductServices.GetProductsByCategoryId(CategoryId);
 			}
 
 			base.OnInitialized();
@@ -42,9 +42,9 @@ namespace WestWindWebApp.Pages
 		// Load the products for the selected category and update the address URL
 		private void HandleCategorySelected()
 		{
-			if (CategoryId != null)
+			if (CategoryId != 0)
 			{
-				Products = ProductServices.GetProductsByCategoryId(int.Parse(CategoryId));
+				Products = ProductServices.GetProductsByCategoryId(CategoryId);
 				NavigationManager.NavigateTo($"/category-products/{CategoryId}");
 			}
 		}

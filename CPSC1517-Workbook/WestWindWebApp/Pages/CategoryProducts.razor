@@ -3,7 +3,11 @@
 	/category-products/{CategoryId} - supports direct lookup of category products
 	/category-products - supports default lookup of category products
 *@
-@page "/category-products/{CategoryId}"
+
+@*
+	Constrain the type for CategoryId (default is string)
+*@
+@page "/category-products/{CategoryId:int}"
 @page "/category-products"
 
 <h3>Category Products</h3>
@@ -15,7 +19,7 @@
 		<div class="col-12">
 			<label class="visually-hidden" for="category">Category:</label>
 			<select class="form-select" id="category" @bind="CategoryId">
-				<option disabled selected>Select a category</option>
+				<option disabled selected value="0">Select a category</option>
 				@if (Categories != null)
 				{
 					foreach (var cat in Categories)
