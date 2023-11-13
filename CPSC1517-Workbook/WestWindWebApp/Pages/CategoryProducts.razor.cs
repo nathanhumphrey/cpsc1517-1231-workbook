@@ -26,6 +26,8 @@ namespace WestWindWebApp.Pages
 		[Parameter]
 		public int CategoryId { get; set; }
 
+		public string PartialSearch { get; set; }
+
 		protected override void OnInitialized()
 		{
 			Categories = CategoryServices.GetAllCategories();
@@ -34,6 +36,7 @@ namespace WestWindWebApp.Pages
 			if (CategoryId != 0)
 			{
 				Products = ProductServices.GetProductsByCategoryId(CategoryId);
+				PartialSearch = null;
 			}
 
 			base.OnInitialized();
@@ -45,7 +48,18 @@ namespace WestWindWebApp.Pages
 			if (CategoryId != 0)
 			{
 				Products = ProductServices.GetProductsByCategoryId(CategoryId);
-				NavigationManager.NavigateTo($"/category-products/{CategoryId}");
+				PartialSearch = null;
+				NavigationManager.NavigateTo($"/products/{CategoryId}");
+			}
+		}
+
+		public void HandlePartialSearch()
+		{
+			if (!string.IsNullOrWhiteSpace(PartialSearch))
+			{
+				Products = ProductServices.GetProductsByNameOrCategoryName(PartialSearch);
+				CategoryId = 0;
+				NavigationManager.NavigateTo($"/products");
 			}
 		}
 	}

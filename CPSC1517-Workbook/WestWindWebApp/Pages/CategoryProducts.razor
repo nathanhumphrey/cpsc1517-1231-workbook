@@ -1,14 +1,14 @@
 ﻿@*
 	Multiple urls supported
-	/category-products/{CategoryId} - supports direct lookup of category products
-	/category-products - supports default lookup of category products
+	/products/{CategoryId} - supports direct lookup of category products
+	/products - supports default lookup of category products
 *@
 
 @*
 	Constrain the type for CategoryId (default is string)
+	Add '?' to allow for null category id, effectively supporting /category-products URL
 *@
-@page "/category-products/{CategoryId:int}"
-@page "/category-products"
+@page "/products/{CategoryId:int?}"
 
 <h3>Category Products</h3>
 
@@ -30,12 +30,24 @@
 			</select>
 		</div>
 		<div class="col-12">
-			<button class="btn btn-primary" @onclick="HandleCategorySelected">Get Products</button>
+			<button class="btn btn-primary" @onclick="HandleCategorySelected">List Products</button>
+		</div>
+	</div>
+</fieldset>
+<fieldset class="mb-3">
+	<legend>Search for Products</legend>
+	<div class="row row-cols-lg-auto g-3 align-items-center">
+		<div class="col-12">
+			<label class="visually-hidden" for="category">Category:</label>
+			<input class="form-control" id="search" @bind="PartialSearch" />
+		</div>
+		<div class="col-12">
+			<button class="btn btn-primary" @onclick="HandlePartialSearch">Search for Products</button>
 		</div>
 	</div>
 </fieldset>
 
-@if (Products != null)
+@if (Products != null && Products.Count > 0)
 {
 	<table class="table table-striped">
 		<thead>
@@ -43,6 +55,7 @@
 				<th>Product Id</th>
 				<th>Name</th>
 				<th>Discontinued</th>
+				<th>Supplier</th>
 				<th>Unit Price</th>
 			</tr>
 		</thead>
@@ -53,9 +66,15 @@
 					<td>@p.ProductId</td>
 					<td>@p.ProductName</td>
 					<td>@p.Discontinued</td>
+
+					<td>@p.Supplier.CompanyName</td>
 					<td class="text-end">@($"{p.UnitPrice:C}")</td>
 				</tr>
 			}
 		</tbody>
 	</table>
+}
+else
+{
+	<div class="alert alert-info">Sorry, there were no products found to match your search</div>
 }
