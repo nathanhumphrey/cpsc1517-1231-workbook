@@ -6,7 +6,7 @@ using WestWindSystem.Entities;
 
 namespace WestWindWebApp.Pages
 {
-	public partial class CategoryProducts
+	public partial class ProductsPage
 	{
 		// Need the BLL services
 		[Inject]
@@ -26,6 +26,7 @@ namespace WestWindWebApp.Pages
 		[Parameter]
 		public int CategoryId { get; set; }
 
+		// Used for partial product name or category name search
 		public string PartialSearch { get; set; }
 
 		protected override void OnInitialized()
@@ -42,7 +43,9 @@ namespace WestWindWebApp.Pages
 			base.OnInitialized();
 		}
 
-		// Load the products for the selected category and update the address URL
+		/// <summary>
+		/// Load the products for the selected category and update the address URL
+		/// </summary>
 		private void HandleCategorySelected()
 		{
 			if (CategoryId != 0)
@@ -53,6 +56,9 @@ namespace WestWindWebApp.Pages
 			}
 		}
 
+		/// <summary>
+		/// Load the products that match the partial search on product name or category name
+		/// </summary>
 		public void HandlePartialSearch()
 		{
 			if (!string.IsNullOrWhiteSpace(PartialSearch))
