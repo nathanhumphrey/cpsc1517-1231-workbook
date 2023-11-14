@@ -32,15 +32,16 @@ namespace WestWindSystem.BLL
 		}
 
 		/// <summary>
-		/// Returns products that partially match the product name or category name, if any.
+		/// Returns products that partially match the product name or supplier name, if any.
 		/// </summary>
 		/// <param name="partial">The partial string to search for</param>
 		/// <returns>A list of products, if any matches were found</returns>
-		public List<Product>? GetProductsByNameOrCategoryName(string partial)
+		public List<Product>? GetProductsByNameOrSupplierName(string partial)
 		{
+			partial = partial.ToLower();
 			return _context.Products
 				.Include(p => p.Supplier)
-				.Where(p => p.ProductName.ToLower().Contains(partial) || p.Category.CategoryName.ToLower().Contains(partial))
+				.Where(p => p.ProductName.ToLower().Contains(partial) || p.Supplier.CompanyName.ToLower().Contains(partial))
 				.ToList<Product>();
 		}
 

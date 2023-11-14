@@ -63,7 +63,7 @@ namespace WestWindWebApp.Pages
 		{
 			if (!string.IsNullOrWhiteSpace(PartialSearch))
 			{
-				Products = ProductServices.GetProductsByNameOrCategoryName(PartialSearch);
+				Products = ProductServices.GetProductsByNameOrSupplierName(PartialSearch);
 				CategoryId = 0;
 				NavigationManager.NavigateTo($"/products");
 			}
