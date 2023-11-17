@@ -10,11 +10,11 @@
 *@
 @page "/products/{CategoryId:int?}"
 
-<h3>Category Products</h3>
+<h3>Products <span style="float:right;"><a class="btn btn-success" href="/product">New Product</a></span></h3>
 
 @* Display the available categories *@
 <fieldset class="mb-3">
-	<legend>Category Selection</legend>
+	<legend>List by Category</legend>
 	<div class="row row-cols-lg-auto g-3 align-items-center">
 		<div class="col-12">
 			<label class="visually-hidden" for="category">Category:</label>
@@ -35,10 +35,10 @@
 	</div>
 </fieldset>
 <fieldset class="mb-3">
-	<legend>Search for Products By Product or Supplier Name</legend>
+	<legend>Search by Name or Supplier Name</legend>
 	<div class="row row-cols-lg-auto g-3 align-items-center">
 		<div class="col-12">
-			<label class="visually-hidden" for="category">Category:</label>
+			<label class="visually-hidden" for="supplier">Supplier:</label>
 			<input class="form-control" id="search" @bind="PartialSearch" />
 		</div>
 		<div class="col-12">
@@ -52,7 +52,7 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>Product Id</th>
+				<th>Edit</th>
 				<th>Name</th>
 				<th>Discontinued</th>
 				<th>Supplier</th>
@@ -63,7 +63,7 @@
 			@foreach (var p in Products)
 			{
 				<tr>
-					<td>@p.ProductId</td>
+					<td><a href="@ProductUrl/@p.ProductId">View / Edit</a></td>
 					<td>@p.ProductName</td>
 					<td>@p.Discontinued</td>
 

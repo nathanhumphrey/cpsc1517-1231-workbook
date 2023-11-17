@@ -19,7 +19,7 @@ namespace WestWindSystem.BLL
         private readonly WestWindContext _context;
 
         /// <summary>
-        /// Constructor to create an instance of the registered context.
+        /// Constructor to create an instance with the registered context.
         /// The internal keyword prevents access to the constructor from outside.
         /// the assembly. This prevents external projects/assemblies from 
         /// creating a new services object directly.

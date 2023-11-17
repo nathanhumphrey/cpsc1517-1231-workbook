@@ -29,6 +29,9 @@ namespace WestWindWebApp.Pages
 		// Used for partial product name or category name search
 		public string PartialSearch { get; set; }
 
+		// Individual products URL
+		private const string ProductUrl = "/product";
+
 		protected override void OnInitialized()
 		{
 			Categories = CategoryServices.GetAllCategories();

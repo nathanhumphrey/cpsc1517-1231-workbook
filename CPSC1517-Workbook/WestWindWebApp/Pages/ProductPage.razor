@@ -1,0 +1,124 @@
+﻿@page "/product/{ProductId:int?}"
+
+@if (ProductId != 0)
+{
+	<h3>View/Edit Product Page</h3>
+}
+else
+{
+	<h3>Add Product Page</h3>
+}
+
+@if (!string.IsNullOrWhiteSpace(FeedbackMessage))
+{
+	<div class="alert alert-info">
+		@FeedbackMessage
+	</div>
+}
+
+@if (Errors.Count > 0)
+{
+	<div class="alert alert-danger">
+		@foreach (var error in Errors)
+		{
+			<p class="m-0">@error.Value</p>
+		}
+	</div>
+}
+
+<fieldset class="mb-3">
+	<legend>Product Details</legend>
+	@if (Product!.Discontinued)
+	{
+		<div class="row g-3 align-items-center mb-3">
+			<div class="alert alert-warning fw-bold col-12">
+				PRODUCT DISCONTINUED
+			</div>
+		</div>
+	}
+	<div class="row g-3 align-items-center mb-3">
+		@if (ProductId != 0)
+		{
+			<div class="col-2">
+				<label class="form-label" for="product-id">Id</label>
+				<input class="form-control" type="text" id="product-id" @bind="Product.ProductId" disabled />
+			</div>
+		}
+		<div class="col-6">
+			<label class="form-label" for="product-name">Product Name</label>
+			<input class="form-control" type="text" id="product-name" @bind="Product.ProductName" />
+		</div>
+	</div>
+	<div class="row g-3 align-items-center mb-3">
+		<div class="col-2">
+			<label class="form-label" for="quantity">Qty Per Unit</label>
+			<input class="form-control" type="text" id="quantity" @bind="Product.QuantityPerUnit" />
+		</div>
+		<div class="col-2">
+			<label class="form-label" for="minimum">Minimum Order Qty</label>
+			<input class="form-control" type="number" id="minimum" @bind="Product.MinimumOrderQuantity" />
+		</div>
+	</div>
+	<div class="row g-3 align-items-center mb-3">
+		<div class="col-2">
+			<label class="form-label" for="unit-price">Unit Price</label>
+			<div class="input-group">
+				<span class="input-group-text">$</span>
+				<input type="number" class="form-control" id="unit-price" @bind="Product.UnitPrice" />
+			</div>
+		</div>
+		<div class="col-2">
+			<label class="form-label" for="units-order">Units on Order</label>
+			<input class="form-control" type="text" id="units-order" @bind="Product.UnitsOnOrder" />
+		</div>
+	</div>
+</fieldset>
+
+<fieldset class="mb-3">
+	<legend>Related Details</legend>
+	<div class="row row-cols-lg-auto g-3 align-items-center">
+		<div class="col-12">
+			<label class="form-label" for="category">Category</label>
+			<select class="form-select" id="category" @bind="Product.CategoryId">
+				<option disabled selected value="0">Select a category</option>
+				@if (Categories != null)
+				{
+					foreach (var c in Categories)
+					{
+						<option value="@c.CategoryId">@c.CategoryName</option>
+					}
+				}
+			</select>
+		</div>
+		<div class="col-12">
+			<label class="form-label" for="supplier">Supplier</label>
+			<select class="form-select" id="supplier" @bind="Product.SupplierId">
+				<option disabled selected value="0">Select a supplier</option>
+				@if (Suppliers != null)
+				{
+					foreach (var s in Suppliers)
+					{
+						<option value="@s.SupplierId">@s.CompanyName</option>
+					}
+				}
+			</select>
+		</div>
+	</div>
+</fieldset>
+
+@if (!Product.Discontinued)
+{
+	<fieldset class="mt-5">
+		<div class="row row-cols-lg-auto g-3 align-items-center">
+			<div class="col-12">
+				<button class="btn btn-primary" @onclick="HandleSaveProduct">Save Product</button>
+			</div>
+			@if (Product.ProductId != 0)
+			{
+				<div class="col-12">
+					<button class="btn btn-danger" @onclick="HandleDiscontinue">Discontinue Product</button>
+				</div>
+			}
+		</div>
+	</fieldset>
+}
