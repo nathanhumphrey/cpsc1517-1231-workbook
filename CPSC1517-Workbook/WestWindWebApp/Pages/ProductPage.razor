@@ -46,17 +46,17 @@ else
 		}
 		<div class="col-6">
 			<label class="form-label" for="product-name">Product Name</label>
-			<input class="form-control" type="text" id="product-name" @bind="Product.ProductName" />
+			<input class="form-control" type="text" id="product-name" @bind="Product.ProductName" disabled="@(Product.Discontinued ? true : false)" />
 		</div>
 	</div>
 	<div class="row g-3 align-items-center mb-3">
 		<div class="col-2">
 			<label class="form-label" for="quantity">Qty Per Unit</label>
-			<input class="form-control" type="text" id="quantity" @bind="Product.QuantityPerUnit" />
+			<input class="form-control" type="text" id="quantity" @bind="Product.QuantityPerUnit" disabled="@(Product.Discontinued ? true : false)" />
 		</div>
 		<div class="col-2">
 			<label class="form-label" for="minimum">Minimum Order Qty</label>
-			<input class="form-control" type="number" id="minimum" @bind="Product.MinimumOrderQuantity" />
+			<input class="form-control" type="number" id="minimum" @bind="Product.MinimumOrderQuantity" disabled="@(Product.Discontinued ? true : false)" />
 		</div>
 	</div>
 	<div class="row g-3 align-items-center mb-3">
@@ -64,12 +64,12 @@ else
 			<label class="form-label" for="unit-price">Unit Price</label>
 			<div class="input-group">
 				<span class="input-group-text">$</span>
-				<input type="number" class="form-control" id="unit-price" @bind="Product.UnitPrice" />
+				<input type="number" class="form-control" id="unit-price" @bind="Product.UnitPrice" disabled="@(Product.Discontinued ? true : false)" />
 			</div>
 		</div>
 		<div class="col-2">
 			<label class="form-label" for="units-order">Units on Order</label>
-			<input class="form-control" type="text" id="units-order" @bind="Product.UnitsOnOrder" />
+			<input class="form-control" type="text" id="units-order" @bind="Product.UnitsOnOrder" disabled="@(Product.Discontinued ? true : false)" />
 		</div>
 	</div>
 </fieldset>
@@ -79,7 +79,7 @@ else
 	<div class="row row-cols-lg-auto g-3 align-items-center">
 		<div class="col-12">
 			<label class="form-label" for="category">Category</label>
-			<select class="form-select" id="category" @bind="Product.CategoryId">
+			<select class="form-select" id="category" @bind="Product.CategoryId" disabled="@(Product.Discontinued ? true : false)">
 				<option disabled selected value="0">Select a category</option>
 				@if (Categories != null)
 				{
@@ -92,7 +92,7 @@ else
 		</div>
 		<div class="col-12">
 			<label class="form-label" for="supplier">Supplier</label>
-			<select class="form-select" id="supplier" @bind="Product.SupplierId">
+			<select class="form-select" id="supplier" @bind="Product.SupplierId" disabled="@(Product.Discontinued ? true : false)">
 				<option disabled selected value="0">Select a supplier</option>
 				@if (Suppliers != null)
 				{
