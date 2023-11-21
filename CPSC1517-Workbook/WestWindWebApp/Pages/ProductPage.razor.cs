@@ -102,7 +102,7 @@ namespace WestWindWebApp.Pages
 		{
 			if (ValidateForm())
 			{
-				if (ProductId == 0)
+				if (Product!.ProductId == 0)
 				{
 					try
 					{
@@ -137,9 +137,16 @@ namespace WestWindWebApp.Pages
 		{
 			if (Product!.ProductId != 0)
 			{
-				ProductServices.DiscontinueProduct(Product!);
-				// Discontinue product in system
-				FeedbackMessage = "Product Successfully Discontinued";
+				try
+				{
+					ProductServices.DiscontinueProduct(Product!);
+					// Discontinue product in system
+					FeedbackMessage = "Product Successfully Discontinued";
+				}
+				catch (Exception ex)
+				{
+					Errors.Add("product-discontinue", ex.Message);
+				}
 			}
 		}
 	}
