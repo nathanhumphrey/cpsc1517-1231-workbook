@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using WestWindSystem.BLL;
 using WestWindSystem.Entities;
 
@@ -6,6 +7,9 @@ namespace WestWindWebApp.Pages
 {
 	public partial class ProductPage
 	{
+		[Inject]
+		IJSRuntime JSRuntime { get; set; }
+
 		[Inject]
 		ProductServices ProductServices { get; set; }
 
@@ -130,22 +134,49 @@ namespace WestWindWebApp.Pages
 			}
 		}
 
+		// <summary>
+		// Handle form submission and discontinue a product
+		// </summary>
+		//private void HandleDiscontinue()
+		//{
+		//	if (Product!.ProductId != 0)
+		//	{
+		//		try
+		//		{
+		//			ProductServices.DiscontinueProduct(Product!);
+		//			// Discontinue product in system
+		//			FeedbackMessage = "Product Successfully Discontinued";
+		//		}
+		//		catch (Exception ex)
+		//		{
+		//			Errors.Add("product-discontinue", ex.Message);
+		//		}
+		//	}
+		//}
+
+		// The following has been updated to support JS confirm prompt on discontinue
 		/// <summary>
-		/// Handle form submission and discontinue a product
+		/// Handle form submission and discontinue a product. Will only discontinue if the user chooses
+		/// to confirm the operation.
 		/// </summary>
-		private void HandleDiscontinue()
+		/// <returns>A Task</returns>
+		private async Task HandleDiscontinue()
 		{
 			if (Product!.ProductId != 0)
 			{
-				try
-				{
-					ProductServices.DiscontinueProduct(Product!);
-					// Discontinue product in system
-					FeedbackMessage = "Product Successfully Discontinued";
-				}
-				catch (Exception ex)
-				{
-					Errors.Add("product-discontinue", ex.Message);
+				object[] messageLines = new[] { "Are you sure you want to discontinue?\nThis action cannot be undone." };
+				if (await JSRuntime.InvokeAsync<bool>("confirm", messageLines))
+				{ 
+					try
+					{
+						ProductServices.DiscontinueProduct(Product!);
+						// Discontinue product in system
+						FeedbackMessage = "Product Successfully Discontinued";
+					}
+					catch (Exception ex)
+					{
+						Errors.Add("product-discontinue", ex.Message);
+					}
 				}
 			}
 		}
